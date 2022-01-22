@@ -58,9 +58,9 @@
       <q-btn label="Esqueci minha senha" class="text-bold q-mx-none" @click="toggleForgotPassForm" dense padding="none" size="sm" flat text-color="primary" />
       <div class="full-width row justify-center items-center">
         <q-btn class="full-width" label="Entrar" color="primary" text-color="white" />
-        <div class="row items-center q-mt-md q-gutter-xs">
-          <div class="text-secondary  text-caption">Não possui um cadastro?</div>
-          <div class="cursor-pointer text-secondary text-caption" @click="toggleRegisterForm">Criar conta</div>
+        <div class="text-primary text-caption row items-center q-mt-md q-gutter-xs">
+          <div>Não possui um cadastro?</div>
+          <div class="cursor-pointer" @click="toggleRegisterForm">Criar conta</div>
         </div>
       </div>
     </div>
@@ -116,8 +116,6 @@ export default ({
 
 <style lang="scss">
 .login-page{
-  background: $secondary;
-
   &__form {
     height: 90vh;
     width: 380px;

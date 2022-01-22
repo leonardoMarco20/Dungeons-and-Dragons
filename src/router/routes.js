@@ -4,11 +4,9 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      //LOGIN
       { path: '/login', component: () => import('pages/Login.vue') },
-
-      //PRODUTO
-      { path: '/list', component: () => import('pages/List.vue') },
+      { name: 'List', path: '/list', component: () => import('pages/List.vue') },
+      { path: '/register-record', component: () => import('pages/RegisterRecord.vue') },
     ]
   },
 

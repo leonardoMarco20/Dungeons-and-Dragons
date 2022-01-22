@@ -1,6 +1,5 @@
   
 const getRecords = state => {
-  
   return state.records
 }
 
