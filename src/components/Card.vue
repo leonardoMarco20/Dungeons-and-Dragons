@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+  <div class="card col-12 col-lg-3 col-md-4 col-sm-6">
     <q-card class="border-radius-lg column full-height" :class="cardClasses">
       <div v-if="useHeader" class="overflow-hidden relative-position">
         <slot name="header">
@@ -9,13 +9,13 @@
         </slot>
       </div>
 
-      <q-card-section class="col-grow column justify-between">
+      <q-card-section class="card--background col-grow column justify-between">
         <div :class="gutterClasses">
           <slot />
         </div>
       </q-card-section>
 
-      <div v-if="useActions" class="border-primary-contrast border-top overflow-hidden row">
+      <div v-if="useActions" class="card--background border-primary-contrast border-top overflow-hidden row">
         <slot name="actions" />
       </div>
     </q-card>
@@ -78,3 +78,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .card {
+    &--background{
+      background: $tertiary;
+    }
+  }
+</style>

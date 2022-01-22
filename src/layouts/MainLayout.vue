@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr lFf">
     <q-header elevated >
       <q-toolbar>
         <q-btn
@@ -24,11 +24,12 @@
       bordered
       class="bg-grey-1"
     >
-      <q-list>
-        <q-item class="text-grey-8" v-for="(link, index) in linkList" :key="index" clickable v-ripple>
-          <q-item-section>
-            Item
+      <q-list bordered separator>
+        <q-item :to="link.path" active-class="text-orange" class="text-grey-8" v-for="(link, index) in linksList" :key="index" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon :name="link.icon" />
           </q-item-section>
+          <q-item-section>{{link.label}}</q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
@@ -55,9 +56,19 @@ export default defineComponent({
     linksList () {
       return [
         {
-          title: 'List',
+          label: 'Records',
+          icon: 'list',
+          path: '/records'
+        },
+        {
+          label: 'Players',
+          icon: 'people',
+          path: '/list'
+        },
+        {
+          label: 'List',
           icon: 'school',
-          path: {name: 'List'}
+          path: '/list'
         }
       ]
     }  

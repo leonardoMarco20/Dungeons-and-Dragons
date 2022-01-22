@@ -1,6 +1,15 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row q-col-gutter-md">
+      <div class="col-4">
+        <card :images="addImages" class="fit cursor-pointer position-relative">
+          <template #default>
+            <div class="absolute-full row justify-center items-center">
+              <q-icon class="row fit" name="add_box" size="100px" color="primary" />
+            </div>
+          </template>
+        </card>  
+      </div>
       <div v-for="(item, index)  in recordsList" :key="index" class="col-4">
         <card use-header use-actions :images="images">
           <template #default>
