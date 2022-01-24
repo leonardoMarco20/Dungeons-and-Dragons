@@ -7,12 +7,23 @@ const fetchRecords = async ({commit}) => {
   commit('setRecords', data);
 }
 
-const postRecord = async ({commit}, payload) =>{
+const fetchSingleRecord = async ({commit}, id) => {
+  const { data } = await axios.get(`${resource_uri}/${id}`)
+  commit('setSingleRecord', data);
+}
+
+const postRecord = async ({commit}, payload) => {
   await axios.post(resource_uri, payload)
   commit('postRecord', payload)
 }
 
+const updateRecord = async ({commit}, payload) => {
+  await axios.patch(`${resource_uri}/${payload._id}`, payload)
+}
+
 export {
   fetchRecords,
-  postRecord
+  fetchSingleRecord,
+  postRecord,
+  updateRecord
 }

@@ -6,7 +6,12 @@ const postRecord = (state, record) =>{
   state.records.push(record)
 }
 
+const setSingleRecord = (state, record) =>{
+  state.currentRecord = record
+}
+
 export {
   setRecords,
+  setSingleRecord,
   postRecord
 }

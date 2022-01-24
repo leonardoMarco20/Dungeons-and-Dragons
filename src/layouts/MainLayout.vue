@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header elevated >
+    <q-header elevated class="header-menu">
       <q-toolbar>
         <q-btn
           flat
@@ -86,3 +86,12 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+  .header-menu {
+    background: #dc143c;
+    background: #992625;
+    //background: url('../assets/bg-3.jpeg');
+    //background-size: cover;
+  }
+</style>

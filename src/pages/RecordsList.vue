@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="row q-col-gutter-md">
       <div class="col-4">
-        <card :images="addImages" class="fit cursor-pointer position-relative">
+        <card @click="goToCreateRecord" :images="addImages" class="fit cursor-pointer position-relative">
           <template #default>
             <div class="absolute-full row justify-center items-center">
               <q-icon class="row fit" name="add_box" size="100px" color="primary" />
@@ -17,7 +17,7 @@
             <div class="text-subtitle1">{{item.surname}}</div>
           </template>
           <template #actions>
-            <q-btn class="full-width" label="Ver mais"/>
+            <q-btn class="full-width" label="Ver mais" :to="{path: `/record/${item._id}`, params:{id: item._id }}"/>
           </template>  
         </card> 
       </div>
@@ -56,6 +56,10 @@ export default ({
 
   methods: {
     ...mapActions('records', ['fetchRecords']),
+
+    goToCreateRecord() {
+      this.$router.push({name: 'CreateRecord'})
+    }
   }
 })
 </script>

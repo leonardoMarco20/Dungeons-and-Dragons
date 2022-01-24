@@ -82,7 +82,7 @@ export default {
 <style lang="scss">
   .card {
     &--background{
-      background: $tertiary;
+      background: $secondary;
     }
   }
 </style>
