@@ -21,9 +21,15 @@ const updateRecord = async ({commit}, payload) => {
   await axios.patch(`${resource_uri}/${payload._id}`, payload)
 }
 
+const deleteRecord = async ({commit}, id) => {
+  await axios.delete(`${resource_uri}/${id}`)
+  commit('deleteRecord', id)
+}
+
 export {
   fetchRecords,
   fetchSingleRecord,
   postRecord,
-  updateRecord
+  updateRecord,
+  deleteRecord
 }

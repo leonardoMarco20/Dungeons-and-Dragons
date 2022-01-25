@@ -18,6 +18,7 @@
           </template>
           <template #actions>
             <q-btn class="full-width" label="Ver mais" :to="{path: `/record/${item._id}`, params:{id: item._id }}"/>
+            <q-btn icon="delete" round text-color="white" class="record-page__btn-actions" @click="deleteSelectedRecord(item._id)" />
           </template>  
         </card> 
       </div>
@@ -55,10 +56,14 @@ export default ({
   },
 
   methods: {
-    ...mapActions('records', ['fetchRecords']),
+    ...mapActions('records', ['fetchRecords', 'deleteRecord']),
 
     goToCreateRecord() {
       this.$router.push({name: 'CreateRecord'})
+    },
+
+    async deleteSelectedRecord (id) {
+      await this.deleteRecord(id)
     }
   }
 })

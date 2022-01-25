@@ -4,7 +4,7 @@
       <div class="col-grow text-h4">Ficha de personagem</div>
       <div class="q-gutter-sm">
         <q-btn icon="edit" round text-color="white" class="record-page__btn-actions" :to="{path: `/record/${recordId}/edit`, params:{id: recordId }}" />
-        <q-btn icon="delete" round text-color="white" class="record-page__btn-actions" />
+        <q-btn icon="delete" round text-color="white" class="record-page__btn-actions" @click="deleteCurrentRecord" />
       </div>
     </div>
     <div class="record-page__content rounded-borders row q-pa-md" :class="sizeClass">
@@ -49,11 +49,16 @@ export default ({
   },
 
   methods: {
-    ...mapActions('records', ['fetchSingleRecord']),
+    ...mapActions('records', ['fetchSingleRecord', 'deleteRecord']),
 
     async fetchRecord () {
       await this.fetchSingleRecord(this.recordId)
       this.result = {...this.singleRecord}
+    },
+
+    async deleteCurrentRecord () {
+      await this.deleteRecord(this.recordId)
+      this.$router.push({ path:'/records' })
     }
   }
 })
