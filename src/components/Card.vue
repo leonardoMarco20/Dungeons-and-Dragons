@@ -9,13 +9,13 @@
         </slot>
       </div>
 
-      <q-card-section class="card--background col-grow column justify-between">
+      <q-card-section class="col-grow column justify-between">
         <div :class="gutterClasses">
           <slot />
         </div>
       </q-card-section>
 
-      <div v-if="useActions" class="card--background border-primary-contrast border-top overflow-hidden row">
+      <div v-if="useActions" class="border-primary-contrast border-top overflow-hidden row">
         <slot name="actions" />
       </div>
     </q-card>
@@ -46,6 +46,10 @@ export default {
     },
     useHeader: {
       type: Boolean
+    },
+    backgroundColor: {
+      type: String,
+      default: 'bg-secondary'
     }
   },
   data () {
@@ -56,6 +60,10 @@ export default {
   computed: {
     bgImagePositionClasses () {
       return [`bg-position-${this.bgImagePosition}`]
+    },
+
+    cardClasses () {
+      return [this.backgroundColor]
     },
     
     hasImages () {
@@ -80,11 +88,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-  .card {
-    &--background{
-      background: $secondary;
-    }
-  }
-</style>
