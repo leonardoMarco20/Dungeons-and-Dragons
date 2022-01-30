@@ -57,21 +57,23 @@ export default {
     bgImagePositionClasses () {
       return [`bg-position-${this.bgImagePosition}`]
     },
+    
     hasImages () {
       return this.images.length > 1
     },
+
     imagesLength () {
       return this.images?.length
-    },
+    }
+    ,
     imagesList () {
       return this.imagesLength && this.images.slice(0, 3)
     },
-    cardClasses () {
-      return [this.formMode ? 'bg-white border-primary no-shadow' : 'box-shadow-1']
-    },
+
     gutterClasses () {
       return [`q-col-gutter-${this.gutter}`]
     },
+
     useActions () {
       return !!(this.$slots.actions)
     }

@@ -1,13 +1,13 @@
 <template>
-  <q-page class="record-page q-pa-md q-ma-md">
+  <q-page class="q-pa-md q-ma-md">
     <div class="row full-width q-py-md">
       <div class="col-grow text-h4">Ficha de personagem</div>
       <div class="q-gutter-sm">
-        <q-btn icon="edit" round text-color="white" class="record-page__btn-actions" :to="{path: `/record/${recordId}/edit`, params:{id: recordId }}" />
-        <q-btn icon="delete" round text-color="white" class="record-page__btn-actions" @click="deleteCurrentRecord" />
+        <q-btn icon="edit" round color="primary" class="record-page__btn-actions" :to="{path: `/record/${recordId}/edit`, params:{id: recordId }}" />
+        <q-btn icon="delete" round  color="primary" class="record-page__btn-actions" @click="deleteCurrentRecord" />
       </div>
     </div>
-    <div class="record-page__content rounded-borders row q-pa-md" :class="sizeClass">
+    <div class="bg-white rounded-borders row q-pa-md" :class="sizeClass">
       <div class="row q-gutter-sm full-width">
         <div class="row col-md-3 col-12">
           <div class="text-bold q-mr-xs">Name:</div>
@@ -64,14 +64,3 @@ export default ({
 })
 </script>
 
-<style lang="scss">
-.record-page {
-  &__content {
-    background: #fff;
-  }
-
-  &__btn-actions {
-    background: $tertiary;
-  }
-}
-</style>

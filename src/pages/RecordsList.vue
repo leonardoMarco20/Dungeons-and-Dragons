@@ -1,10 +1,10 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="record-list-page q-pa-md">
     <div class="row q-col-gutter-md">
       <div class="col-4">
-        <card @click="goToCreateRecord" :images="addImages" class="fit cursor-pointer position-relative">
+        <card class="fit cursor-pointer relative-position record-list-page__add-card" @click="goToCreateRecord" :images="addImages">
           <template #default>
-            <div class="absolute-full row justify-center items-center">
+            <div class="transparent absolute-full row justify-center items-center">
               <q-icon class="row fit" name="add_box" size="100px" color="primary" />
             </div>
           </template>
@@ -17,8 +17,12 @@
             <div class="text-subtitle1">{{item.surname}}</div>
           </template>
           <template #actions>
-            <q-btn class="full-width" label="Ver mais" :to="{path: `/record/${item._id}`, params:{id: item._id }}"/>
-            <q-btn icon="delete" round text-color="white" class="record-page__btn-actions" @click="deleteSelectedRecord(item._id)" />
+            <q-separator class="full-width" />
+            <div class="record-list-page__actions q-py-xs row justify-around full-width">
+              <q-btn flat icon="visibility" round color="primary" :to="{path: `/record/${item._id}`, params:{id: item._id }}" />
+              <q-btn flat icon="edit" round color="primary" :to="{path: `/record/${item._id}`, params:{id: item._id }}" />
+              <q-btn flat icon="delete" round color="primary" @click="deleteSelectedRecord(item._id)" />
+            </div>
           </template>  
         </card> 
       </div>
@@ -68,3 +72,35 @@ export default ({
   }
 })
 </script>
+
+<style lang="scss">
+  .record-list-page {
+
+    &__add-card {
+      .card--background {
+        background: transparent;
+      }
+
+      &::before, &::after {
+        content: '';
+        position: absolute;
+        top:0;
+        height: 100%;
+        width:100%;
+      }
+
+      &::before {
+        opacity:.1;
+      }
+
+      &::after {
+        border: 2px dashed $primary;
+        border-radius: 4px;
+      }
+    }
+
+    &__actions {
+      background: $actions-background;
+    }
+  }
+</style>
