@@ -1,6 +1,7 @@
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
 
+import router from '../router'
 import records from './records'
 
 /*

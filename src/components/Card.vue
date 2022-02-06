@@ -88,3 +88,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .card {
+    height: 400px;
+  }
+</style>

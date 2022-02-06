@@ -1,8 +1,8 @@
 <template>
   <div>
-    <q-page class="record-list-page q-pa-md">
-      <div class="row q-col-gutter-md">
-        <div class="col-4">
+    <q-page class="column record-list-page q-pa-md">
+      <div class="col-grow row q-col-gutter-md">
+        <div class="col-3">
           <card backgroundColor="transparent" class="fit cursor-pointer relative-position record-list-page__add-card" @click="goToCreateRecord" :images="addImages">
             <template #default>
               <div class="absolute-full row justify-center items-center">
@@ -11,7 +11,7 @@
             </template>
           </card>  
         </div>
-        <div v-for="(item, index)  in recordsList" :key="index" class="col-4">
+        <div v-for="(item, index)  in recordsList" :key="index" class="col-3">
           <card use-header use-actions :images="images">
             <template #default>
               <div class="text-bold text-h4">{{item.name}}</div>
@@ -28,6 +28,9 @@
           </card> 
         </div>
       </div>
+       <div class="q-pa-lg flex flex-center">
+        <q-pagination @click="changePage" color="red" max="5" v-model="page"  boundary-links direction-links  />
+       </div>
     </q-page>
     <q-dialog v-model="showDialog">
       <q-card class="q-pa-lg">
@@ -56,6 +59,8 @@ export default ({
     return {
       showDialog: false,
       idCard: '',
+      page: 1,
+      result: {},
       images: ['https://1.bp.blogspot.com/--mgtxY8CNqg/W-NqyKm5gRI/AAAAAAAADgM/RVruchsFP7EMwv3ZWbaZM9ws-Qga-FWlgCLcBGAs/s640/an%25C3%25A3o-protetor-Help-RPG.jpg'],
     }
   },
@@ -68,12 +73,24 @@ export default ({
     ...mapGetters('records', ['getRecords']),
 
     recordsList () {
-      return this.getRecords
-    }
+      return this.getRecords.results 
+    },
+
+    hasPages () {
+      return this.totalPages > 1
+    },
   },
 
   created () {
+    this.getResults(this.recordsList)
     this.fetchRecords()
+  },
+
+  watch: {
+    $route () {
+      this.fetchRecords()
+      this.setCurrentPage()
+    }
   },
 
   methods: {
@@ -81,6 +98,19 @@ export default ({
 
     goToCreateRecord() {
       this.$router.push({name: 'CreateRecord'})
+    },
+
+    getResults (results) {
+      this.results = results
+    },
+
+     setCurrentPage () {
+      this.page = parseInt(this.$route.query.page || 1)
+    },
+
+    changePage () {
+      const query = { ...this.$route.query, page: this.page }
+      this.$router.push({ query })
     },
 
     toogleDialog (id) {
@@ -98,8 +128,8 @@ export default ({
 
 <style lang="scss">
   .record-list-page {
-
     &__add-card {
+      max-height: 400px;
       .card--background {
         background: transparent;
       }
