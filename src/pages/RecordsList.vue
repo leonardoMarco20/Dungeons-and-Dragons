@@ -83,12 +83,12 @@ export default ({
 
   created () {
     this.getResults(this.recordsList)
-    this.fetchRecords()
+    this.fetchRecords({page: this.page, limit: 3})
   },
 
   watch: {
     $route () {
-      this.fetchRecords()
+      this.fetchRecords({page: this.page, limit: 3})
       this.setCurrentPage()
     }
   },

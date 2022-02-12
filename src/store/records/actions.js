@@ -1,9 +1,8 @@
 import axios from "axios"
-const resource_uri = 'http://localhost:3000/record?page=1&limit=3'
+const resource_uri = 'http://localhost:3000/record'
 
-const fetchRecords = async ({commit}) => {
-  console.log(this.$router)
-  const { data } = await axios.get(resource_uri)
+const fetchRecords = async ({commit}, {page, limit}) => {
+  const { data } = await axios.get(`${resource_uri}?page=${page}&limit=${limit}`)
   commit('setRecords', data);
 }
 
