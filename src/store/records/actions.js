@@ -6,6 +6,11 @@ const fetchRecords = async ({commit}, {page, limit}) => {
   commit('setRecords', data);
 }
 
+const fetchAllRecords = async ({commit}) => {
+  const { data } = await axios.get(resource_uri)
+  commit('setRecordsLength', data);
+}
+
 const fetchSingleRecord = async ({commit}, id) => {
   const { data } = await axios.get(`${resource_uri}/${id}`)
   commit('setSingleRecord', data);
@@ -27,6 +32,7 @@ const deleteRecord = async ({commit}, id) => {
 
 export {
   fetchRecords,
+  fetchAllRecords,
   fetchSingleRecord,
   postRecord,
   updateRecord,

@@ -59,7 +59,6 @@ export default ({
     },
 
     update () {
-      console.log(this.values)
       this.updateRecord(this.values)
       this.$router.push({ path:'/records' })
     }

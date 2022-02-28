@@ -1,5 +1,9 @@
 const setRecords = (state, records) => {
-  state.records = records
+  state.records = records.results
+}
+
+const setRecordsLength = (state, records) => {
+  state.recordsLength = records.results.length
 }
 
 const postRecord = (state, record) =>{
@@ -12,12 +16,12 @@ const setSingleRecord = (state, record) =>{
 
 const deleteRecord = (state, recordId) => {
   const index = state.records.findIndex(record => record._id == recordId)
-  console.log(index)
   state.records.splice(index, 1)
 }
 
 export {
   setRecords,
+  setRecordsLength,
   setSingleRecord,
   postRecord,
   deleteRecord

@@ -29,7 +29,7 @@
         </div>
       </div>
        <div class="q-pa-lg flex flex-center">
-        <q-pagination @click="changePage" color="red" max="5" v-model="page"  boundary-links direction-links  />
+        <q-pagination @click="changePage" color="red" :max="maxPages" v-model="page"  boundary-links direction-links  />
        </div>
     </q-page>
     <q-dialog v-model="showDialog">
@@ -70,31 +70,34 @@ export default ({
   },
 
   computed: {
-    ...mapGetters('records', ['getRecords']),
+    ...mapGetters('records', ['getRecords', 'getRecordsLength']),
 
     recordsList () {
-      return this.getRecords.results 
+      return this.getRecords
     },
 
-    hasPages () {
-      return this.totalPages > 1
-    },
+    maxPages () {
+      return Math.ceil(this.getRecordsLength / 10)
+    }
   },
 
   created () {
     this.getResults(this.recordsList)
-    this.fetchRecords({page: this.page, limit: 3})
+    this.fetchRecords({page: this.page, limit: 10})
+    this.fetchAllRecords()
+
   },
 
   watch: {
     $route () {
-      this.fetchRecords({page: this.page, limit: 3})
+      this.fetchRecords({page: this.page, limit: 10})
       this.setCurrentPage()
+      this.fetchAllRecords()
     }
   },
 
   methods: {
-    ...mapActions('records', ['fetchRecords', 'deleteRecord']),
+    ...mapActions('records', ['fetchRecords', 'fetchAllRecords', 'deleteRecord']),
 
     goToCreateRecord() {
       this.$router.push({name: 'CreateRecord'})
