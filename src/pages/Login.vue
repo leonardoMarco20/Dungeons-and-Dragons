@@ -6,8 +6,8 @@
         <div class="text-bold text-primary text-h6">Crie sua conta</div>
       </div>
       <div class="q-gutter-sm q-ma-none">
-        <q-input outlined label="Nome completo" />
-        <q-input outlined label="Email" />
+        <q-input outlined label="Nome completo" v-model="values.name" />
+        <q-input outlined label="Email" v-model="values.email" />
         <div class="row full-width no-wrap">
           <div class="q-mr-sm">            
             <q-input v-model="values.password" outlined label="Senha" :type="passwordInputType">
@@ -18,12 +18,12 @@
           </q-input>
           </div>
           <div>
-            <q-input outlined label="Confirmar senha" />
+            <q-input outlined label="Confirmar senha" v-model="values.confirmPassword" />
           </div>
         </div>
       </div>
       <div class="full-width">
-        <q-btn class="full-width" label="Cadastrar" color="primary" text-color="white" />
+        <q-btn class="full-width" label="Cadastrar" color="primary" text-color="white" @click="register" />
       </div>
     </div>
 
@@ -57,7 +57,7 @@
       </div>
       <q-btn label="Esqueci minha senha" class="text-bold q-mx-none" @click="toggleForgotPassForm" dense padding="none" size="sm" flat text-color="primary" />
       <div class="full-width row justify-center items-center">
-        <q-btn class="full-width" label="Entrar" color="primary" text-color="white" />
+        <q-btn class="full-width" label="Entrar" color="primary" text-color="white" @click="authenticate" />
         <div class="text-primary text-caption row items-center q-mt-md q-gutter-xs">
           <div>Não possui um cadastro?</div>
           <div class="cursor-pointer" @click="toggleRegisterForm">Criar conta</div>
@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
 
 export default ({
   name: 'List',
@@ -76,7 +77,6 @@ export default ({
   data(){
     return {
       values: {},
-      images: ['https://http2.mlstatic.com/D_NQ_NP_917067-MLB43558836700_092020-O.webp'],
       list: 5,
       isRegisterForm: false,
       isForgotPassForm: false,
@@ -99,6 +99,8 @@ export default ({
   },
 
   methods: {
+    ...mapActions('users', ['registerUser', 'authenticateUser']),
+
     toggleRegisterForm () {
       return this.isRegisterForm = !this.isRegisterForm
     },
@@ -109,6 +111,16 @@ export default ({
 
     toggleShowPassword () {
       return this.showPassword = !this.showPassword
+    },
+
+    register () {
+      this.registerUser(this.values)
+      this.toggleRegisterForm()
+    },
+
+    authenticate () {
+      this.authenticateUser(this.values)
+      this.$router.push('/records')
     }
   }
 })

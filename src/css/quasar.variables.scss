@@ -12,14 +12,20 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-//$primary   : #e1ad6d;
-$primary  : #992625;
-$secondary : #faecca;
-$tertiary  : #e1ad6d;
+// Estilo v1
+// $primary  : #992625;
+// $secondary : #faecca;
+// $tertiary  : #e1ad6d;
 //$tertiary  : #992625;
+// $actions-background: #9926252e;
 
+//Estilo v2
 
-$actions-background: #9926252e; 
+$primary  : #27e8a7;
+$secondary : #444857;
+$tertiary  : #e1ad6d;
+
+$menu-background: #1e1f26; 
 //#ffec9e
 //#ffdd8a
 //#e1ad6d

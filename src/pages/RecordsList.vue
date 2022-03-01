@@ -1,8 +1,11 @@
 <template>
   <div>
     <q-page class="column record-list-page q-pa-md">
+      
+      <div class="q-py-lg text-h4 text-bold text-white">Seja bem vindo {{userName}}</div>
+
       <div class="col-grow row q-col-gutter-md">
-        <div class="col-3">
+        <!-- <div class="col-3">
           <card backgroundColor="transparent" class="fit cursor-pointer relative-position record-list-page__add-card" @click="goToCreateRecord" :images="addImages">
             <template #default>
               <div class="absolute-full row justify-center items-center">
@@ -10,9 +13,9 @@
               </div>
             </template>
           </card>  
-        </div>
+        </div> -->
         <div v-for="(item, index)  in recordsList" :key="index" class="col-3">
-          <card use-header use-actions :images="images">
+          <card class=" text-white" use-header use-actions :images="images">
             <template #default>
               <div class="text-bold text-h4">{{item.name}}</div>
               <div class="text-subtitle1">{{item.surname}}</div>
@@ -29,7 +32,7 @@
         </div>
       </div>
        <div class="q-pa-lg flex flex-center">
-        <q-pagination @click="changePage" color="red" :max="maxPages" v-model="page"  boundary-links direction-links  />
+        <q-pagination @click="changePage" color="primary" :max="maxPages" v-model="page"  boundary-links direction-links  />
        </div>
     </q-page>
     <q-dialog v-model="showDialog">
@@ -71,6 +74,7 @@ export default ({
 
   computed: {
     ...mapGetters('records', ['getRecords', 'getRecordsLength']),
+    ...mapGetters('users', ['getLoggedUser']),
 
     recordsList () {
       return this.getRecords
@@ -78,6 +82,10 @@ export default ({
 
     maxPages () {
       return Math.ceil(this.getRecordsLength / 10)
+    },
+
+    userName () {
+      return this.getLoggedUser.name || localStorage.getItem('user')
     }
   },
 
@@ -131,33 +139,8 @@ export default ({
 
 <style lang="scss">
   .record-list-page {
-    &__add-card {
-      max-height: 400px;
-      .card--background {
-        background: transparent;
-      }
-
-      &::before, &::after {
-        content: '';
-        position: absolute;
-        top:0;
-        height: 100%;
-        width:100%;
-      }
-
-      &::before {
-        opacity:.2;
-        background: #ffffff;
-      }
-
-      &::after {
-        border: 2px dashed $primary;
-        border-radius: 4px;
-      }
-    }
-
     &__actions {
-      background: $actions-background;
+      background: $menu-background;
     }
   }
 </style>

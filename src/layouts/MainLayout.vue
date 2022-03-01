@@ -89,8 +89,8 @@ export default defineComponent({
 
 <style lang="scss">
   .header-menu {
-    background: #dc143c;
-    background: #992625;
+    background: $menu-background;
+    // background: #992625;
     //background: url('../assets/bg-3.jpeg');
     //background-size: cover;
   }

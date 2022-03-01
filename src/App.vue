@@ -5,6 +5,12 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'App'
+  name: 'App',
+
+  created() {
+    if(localStorage.getItem('token') === null) {
+      this.$router.push('/login')
+    }
+  }
 })
 </script>
