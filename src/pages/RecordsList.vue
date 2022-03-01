@@ -2,18 +2,14 @@
   <div>
     <q-page class="column record-list-page q-pa-md">
       
-      <div class="q-py-lg text-h4 text-bold text-white">Seja bem vindo {{userName}}</div>
-
+      <div class="row justify-between">
+        <div class="q-py-lg text-h4 text-bold text-white">Seja bem vindo {{userName}}</div>
+        <div class="row items-center">
+          <neon-btn  label="Adicionar" @click="goToCreateRecord" />
+        </div>
+      </div>
+      
       <div class="col-grow row q-col-gutter-md">
-        <!-- <div class="col-3">
-          <card backgroundColor="transparent" class="fit cursor-pointer relative-position record-list-page__add-card" @click="goToCreateRecord" :images="addImages">
-            <template #default>
-              <div class="absolute-full row justify-center items-center">
-                <q-icon class="row fit" name="add_box" size="100px" color="primary" />
-              </div>
-            </template>
-          </card>  
-        </div> -->
         <div v-for="(item, index)  in recordsList" :key="index" class="col-3">
           <card class=" text-white" use-header use-actions :images="images">
             <template #default>
@@ -24,7 +20,7 @@
               <q-separator class="full-width" />
               <div class="record-list-page__actions q-py-xs row justify-around full-width">
                 <q-btn flat icon="visibility" round color="primary" :to="{path: `/record/${item._id}`, params:{id: item._id }}" />
-                <q-btn flat icon="edit" round color="primary" :to="{path: `/record/${item._id}`, params:{id: item._id }}" />
+                <q-btn flat icon="edit" round color="primary" :to="{path: `/record/${item._id}/edit`, params:{id: item._id }}" />
                 <q-btn flat icon="delete" round color="primary" @click="toogleDialog(item._id)" />
               </div>
             </template>  
@@ -53,6 +49,7 @@
 
 <script>
 import Card from 'components/Card.vue'
+import NeonBtn from 'components/NeonBtn.vue'
 import {mapActions, mapGetters} from 'vuex'
 
 export default ({
@@ -69,7 +66,8 @@ export default ({
   },
 
   components:{
-    Card
+    Card,
+    NeonBtn
   },
 
   computed: {
