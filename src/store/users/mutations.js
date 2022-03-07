@@ -1,8 +1,8 @@
-const setLoggedUser = (state, user) =>{
+const setLoggedUser = (state, user) => {
   state.me = user
 }
 
-const postUser = (state, user) =>{
+const postUser = (state, user) => {
   state.users.push(user) 
 }
 

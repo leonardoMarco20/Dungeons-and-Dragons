@@ -7,28 +7,33 @@ const registerUser = async ({commit}, payload) => {
 }
 
 const authenticateUser = async ({commit}, payload) => {
-  const result = await axios.post('http://localhost:3000/auth/authenticate', payload)
-  localStorage.setItem('token', result.data.token)
-  localStorage.setItem('email', result.data.user.email)
+    const result = await axios.post('http://localhost:3000/auth/authenticate', payload)
+    localStorage.setItem('token', result.data.token)
+    localStorage.setItem('email', result.data.user.email)
 
-  const {data} = await axios.get('http://localhost:3000/projects', 
-    // {
-    //   "to": payload.recipientDid,
-    //   "message": payload.message
-    // },
-    {
-      headers: {
-        "Accept": 'application/json',
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${result.data.token}`
-      }
-    } 
-  )
-  
-  const user = await axios.get(`http://localhost:3000/users/${data.user}`)  
+    const {data} = await axios.get('http://localhost:3000/projects', 
+      // {
+      //   "to": payload.recipientDid,
+      //   "message": payload.message
+      // },
+      {
+        headers: {
+          "Accept": 'application/json',
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${result.data.token}`
+        }
+      } 
+    )
+    
+    const user = await axios.get(`http://localhost:3000/users/${data.user}`)  
 
-  commit('setLoggedUser', user.data)
-  localStorage.setItem('user', user.data.name)
+    commit('setLoggedUser', user.data)
+    return localStorage.setItem('user', user.data.name)
+}
+
+const logout = async ({commit}) => {
+  localStorage.clear()
+  commit('setLoggedUser', {})
 }
 
 
@@ -45,5 +50,6 @@ const authenticateUser = async ({commit}, payload) => {
 // } 
 export {
   registerUser,
-  authenticateUser
+  authenticateUser,
+  logout
 }

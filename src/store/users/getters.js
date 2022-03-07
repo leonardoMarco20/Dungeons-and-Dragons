@@ -1,7 +1,7 @@
-const getLoggedUser = state => {
+const loggedUser = state => {
   return state.me
 }
 
 export {
-  getLoggedUser
+  loggedUser
 }

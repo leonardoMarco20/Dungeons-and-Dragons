@@ -72,7 +72,7 @@ export default ({
 
   computed: {
     ...mapGetters('records', ['getRecords', 'getRecordsLength']),
-    ...mapGetters('users', ['getLoggedUser']),
+    ...mapGetters('users', ['loggedUser']),
 
     recordsList () {
       return this.getRecords
@@ -83,7 +83,7 @@ export default ({
     },
 
     userName () {
-      return this.getLoggedUser.name || localStorage.getItem('user')
+      return this.loggedUser.name || localStorage.getItem('user')
     }
   },
 
