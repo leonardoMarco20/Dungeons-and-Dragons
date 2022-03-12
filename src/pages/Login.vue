@@ -45,8 +45,8 @@
         <q-avatar size="80px" font-size="52px" color="primary" text-color="white" icon="account_circle" />
       </div>
       <div class="q-gutter-md q-ma-none">
-        <q-input :rules="[emailError]" :error-message="emailError"  bg-color="white" v-model="values.email" outlined label="Email" type="email" icon="account_circle" />
-        <q-input bg-color="white" v-model="values.password" outlined label="Senha" :type="passwordInputType">
+        <q-input :error="hasErrors" :error-message="emailErrors"  bg-color="white" v-model="values.email" outlined label="Email" type="email" icon="account_circle" />
+        <q-input :error="hasErrors" :error-message="passwordErrors" bg-color="white" v-model="values.password" outlined label="Senha" :type="passwordInputType">
           <template #append>
             <q-icon v-if="showPassword" name="visibility" @click="toggleShowPassword" />
             <q-icon v-else name="visibility_off" @click="toggleShowPassword" />
@@ -96,8 +96,16 @@ export default ({
       return this.showPassword ? 'text' : 'password'
     },
 
-    emailError () {
-      return this.errors?.email
+    hasErrors () {
+      return !!this.errors
+    },
+
+    emailErrors () {
+      return this.errors.email?.message
+    },
+
+    passwordErrors () {
+      return this.errors.password?.message
     }
   },
 
