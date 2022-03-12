@@ -7,7 +7,9 @@ const registerUser = async ({commit}, payload) => {
 }
 
 const authenticateUser = async ({commit}, payload) => {
+  try {
     const result = await axios.post('http://localhost:3000/auth/authenticate', payload)
+    console.log(result)
     localStorage.setItem('token', result.data.token)
     localStorage.setItem('email', result.data.user.email)
 
@@ -28,7 +30,12 @@ const authenticateUser = async ({commit}, payload) => {
     const user = await axios.get(`http://localhost:3000/users/${data.user}`)  
 
     commit('setLoggedUser', user.data)
-    return localStorage.setItem('user', user.data.name)
+    return localStorage.setItem('user', user.data.name) 
+  }  
+  
+  catch (error) {
+    if(error.response)  throw error
+  }  
 }
 
 const logout = async ({commit}) => {

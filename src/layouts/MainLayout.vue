@@ -46,7 +46,7 @@ export default defineComponent({
       isLogged: false,
       userMock: {
         name: 'Leonardo da Silva Marco',
-        // avatar: 'https://w7.pngwing.com/pngs/238/464/png-transparent-bart-simpson-s-guide-to-life-homer-simpson-marge-simpson-lisa-simpson-los-simpson.png'
+        avatar: 'https://w7.pngwing.com/pngs/238/464/png-transparent-bart-simpson-s-guide-to-life-homer-simpson-marge-simpson-lisa-simpson-los-simpson.png'
       }
     }
   },
