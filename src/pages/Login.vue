@@ -45,8 +45,8 @@
         <q-avatar size="80px" font-size="52px" color="primary" text-color="white" icon="account_circle" />
       </div>
       <div class="q-gutter-md q-ma-none">
-        <q-input :error="hasErrors" :error-message="emailErrors"  bg-color="white" v-model="values.email" outlined label="Email" type="email" icon="account_circle" />
-        <q-input :error="hasErrors" :error-message="passwordErrors" bg-color="white" v-model="values.password" outlined label="Senha" :type="passwordInputType">
+        <q-input hide-bottom-space @blur="refreshErrors('email')" :error="hasEmailErrors" :error-message="emailErrors"  bg-color="white" v-model="values.email" outlined label="Email" type="email" icon="account_circle" />
+        <q-input hide-bottom-space @blur="refreshErrors('password')" :error="hasPasswordErrors" :error-message="passwordErrors" bg-color="white" v-model="values.password" outlined label="Senha" :type="passwordInputType">
           <template #append>
             <q-icon v-if="showPassword" name="visibility" @click="toggleShowPassword" />
             <q-icon v-else name="visibility_off" @click="toggleShowPassword" />
@@ -82,7 +82,7 @@ export default ({
       showPassword: false
     }
   },
-
+      
   computed: {
     sizeClass () {
       return !this.isRegisterForm && 'login-page__form--small'
@@ -96,8 +96,12 @@ export default ({
       return this.showPassword ? 'text' : 'password'
     },
 
-    hasErrors () {
-      return !!this.errors
+    hasEmailErrors () {
+      return 'email' in this.errors 
+    },
+
+    hasPasswordErrors () {
+      return 'password' in this.errors
     },
 
     emailErrors () {
@@ -122,6 +126,10 @@ export default ({
 
     toggleShowPassword () {
       return this.showPassword = !this.showPassword
+    },
+
+    refreshErrors (field) {
+      delete this.errors[field]
     },
 
     register () {
