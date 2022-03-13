@@ -1,5 +1,5 @@
 const setLoggedUser = (state, user) => {
-  state.me = user
+  state.me = {...user}
 }
 
 const postUser = (state, user) => {

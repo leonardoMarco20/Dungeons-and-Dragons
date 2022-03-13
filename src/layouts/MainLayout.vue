@@ -5,11 +5,11 @@
         <div class="row no-wrap">
           <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
           <q-toolbar-title>
-            Dungeons and dragons - {{hasLoggedUser}}
+            Dungeons and dragons
           </q-toolbar-title>
         </div>
       </q-toolbar>
-      <menu-profile class="col-grow" :user="userMock"/>
+      <menu-profile class="col-grow" :user="user"/>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" bordered class="bg-grey-1">
@@ -68,8 +68,13 @@ export default defineComponent({
         }
       ]
     },
+
     hasLoggedUser () {
       return this.getLoggedUser() && !!localStorage.getItem('token')
+    },
+
+    user () {
+      return this.loggedUser
     }
   },
 

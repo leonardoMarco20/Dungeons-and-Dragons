@@ -12,9 +12,9 @@
 
           <q-menu class="full-width profile__menu text-white bg-secondary">
             <q-list style="profile__menu__list">
-              <q-item class="row q-col-gutter-xs items-center" clickable v-close-popup>
+              <q-item class="row q-col-gutter-xs items-center" clickable v-close-popup  :to="{ name: 'Profile', params: {id: user.id} }">
                 <q-icon name="account_circle" size="sm" />
-                <q-item-section :to="{ name: 'Profile', params: {id: user.id} }">Perfil</q-item-section>
+                <q-item-section>Perfil</q-item-section>
               </q-item>
               <q-item class="row q-col-gutter-xs items-center" clickable v-close-popup>
                 <q-icon name="logout" size="sm" />

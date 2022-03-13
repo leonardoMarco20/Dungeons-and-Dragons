@@ -97,11 +97,11 @@ export default ({
     },
 
     hasEmailErrors () {
-      return 'email' in this.errors 
+      return this.errors.email && 'email' in this.errors 
     },
 
     hasPasswordErrors () {
-      return 'password' in this.errors
+      return this.errors.password && 'password' in this.errors
     },
 
     emailErrors () {
@@ -141,10 +141,12 @@ export default ({
       this.authenticateUser(this.values)
       .then(()=>{
         this.$router.push('/records')
-      }).catch((err)=>{
+      })
+      .catch((err)=>{
         this.errors = err.response?.data?.error
-        console.log(this.errors['email'].message)
-        return
+        if (this.hasEmailErrors) return this.$q.notify(this.errors.email)
+        if (this.hasPasswordErrors) return this.$q.notify(this.errors.password)
+        return this.$q.notify(this.errors)
       })
       
     }

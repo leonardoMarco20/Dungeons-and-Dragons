@@ -83,7 +83,7 @@ export default ({
     },
 
     userName () {
-      return this.loggedUser.name || localStorage.getItem('user')
+      return this.loggedUser.name ?? localStorage.getItem('user')
     }
   },
 

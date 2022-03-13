@@ -9,6 +9,7 @@ const routes = [
       { name: 'CreateRecord', path: '/record/new', component: () => import('pages/FormRecord.vue') },
       { name: 'SingleRecord', path: '/record/:id', component: () => import('pages/SingleRecord.vue') },
       { name: 'EditRecord', path: '/record/:id/edit', component: () => import('pages/FormRecord.vue') },
+      { name: 'Profile', path: '/profile/:id/edit', component: () => import('src/pages/ProfileForm.vue') },
     ]
   },
 

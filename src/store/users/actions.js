@@ -9,7 +9,7 @@ const registerUser = async ({commit}, payload) => {
 const authenticateUser = async ({commit}, payload) => {
   try {
     const result = await axios.post('http://localhost:3000/auth/authenticate', payload)
-    console.log(result)
+    
     localStorage.setItem('token', result.data.token)
     localStorage.setItem('email', result.data.user.email)
 
