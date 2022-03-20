@@ -9,7 +9,7 @@
           </q-toolbar-title>
         </div>
       </q-toolbar>
-      <menu-profile class="col-grow" :user="user"/>
+      <menu-profile v-if="user" class="col-grow" :user="user"/>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" bordered class="bg-grey-1">
@@ -32,6 +32,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import axios from "axios"
+import { setCssVar  } from 'quasar'
 import MenuProfile from '../components/MenuProfile.vue'
 
 export default defineComponent({
@@ -102,8 +103,9 @@ export default defineComponent({
         } 
       )
     
-      const { data : { _id, email, name }} = await axios.get(`http://localhost:3000/users/${data.user}`)  
-      this.user = { id: _id, email, name }
+      const { data : { _id, email, name, color }} = await axios.get(`http://localhost:3000/users/${data.user}`)  
+      this.user = { id: _id, email, name, color }
+      setCssVar('primary', color.value)
     }
   }
 })

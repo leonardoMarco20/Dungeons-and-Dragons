@@ -32,6 +32,7 @@
 
 <script>
 import axios from "axios"
+import { setCssVar  } from 'quasar'
 import { mapActions } from 'vuex'
 
 export default {
@@ -47,7 +48,7 @@ export default {
         },
         {
           label: 'Laranja',
-          value:'orange'
+          value:'#F76E11'
         },
         {
           label: 'Amarelo',
@@ -55,17 +56,23 @@ export default {
         },
         {
           label: 'Verde',
-          value:'green'
+          value:'#27e8a7'
         },
         {
           label: 'Azul',
-          value:'blue'
+          value:'#00B4D8'
         },
         {
           label: 'Roxo',
           value:'purple'
         }  
       ]   
+    }
+  },
+
+  watch: {
+    'values.color'({ value }) {
+      setCssVar('primary', value)
     }
   },
 
@@ -109,6 +116,7 @@ export default {
 
     update () {
       this.updateUser({payload: this.values, id: this.userId }).then(()=>{
+        setCssVar('primary', this.values.color.value)
         this.$q.notify('Dados atualizados')
         this.$router.push({name: 'Records' })
       }).catch(err =>{

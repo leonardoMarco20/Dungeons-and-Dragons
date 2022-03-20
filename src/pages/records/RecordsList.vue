@@ -1,14 +1,12 @@
 <template>
   <div>
     <q-page class="column record-list-page q-pa-md">
-      
       <div class="row justify-between">
         <div class="q-py-lg text-h4 text-bold text-white">Seja bem vindo {{userName}}</div>
         <div class="row items-center">
-          <neon-btn  label="Adicionar" @click="goToCreateRecord" />
+          <neon-btn label="Adicionar" :color="color" @click="goToCreateRecord" />
         </div>
       </div>
-      
       <div class="col-grow row q-col-gutter-md">
         <div v-for="(item, index)  in recordsList" :key="index" class="col-3">
           <card class=" text-white" use-header use-actions :images="images" @click="goToSingle(item._id)">
@@ -61,6 +59,7 @@ export default ({
       showDialog: false,
       idCard: '',
       page: 1,
+      color: '',
       result: {},
       userName: '',
       images: ['https://1.bp.blogspot.com/--mgtxY8CNqg/W-NqyKm5gRI/AAAAAAAADgM/RVruchsFP7EMwv3ZWbaZM9ws-Qga-FWlgCLcBGAs/s640/an%25C3%25A3o-protetor-Help-RPG.jpg'],
@@ -136,8 +135,9 @@ export default ({
     },
 
     async getUser (id) {
-      const { data : { name }} = await axios.get(`http://localhost:3000/users/${id}`) 
+      const { data : { name, color }} = await axios.get(`http://localhost:3000/users/${id}`) 
       this.userName = name
+      this.color = color
     },
   }
 })

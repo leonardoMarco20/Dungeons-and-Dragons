@@ -1,5 +1,5 @@
 <template>
-  <q-btn class="neon" :label="label"  :style="styles" />
+  <q-btn ref="neon" class="neon text-primary" :label="label" :style="styles" />
 </template>
 
 <script>
@@ -10,6 +10,11 @@ export default {
       default: ''
     },
 
+    color: {
+      type: String,
+      default: '$primary'
+    },
+
     height: {
       type: Number,
       default: 30
@@ -18,7 +23,12 @@ export default {
 
   computed: {
     styles() {
-      return `height: ${this.height}px;`
+      return {
+        height: `${this.height}px;`,
+        // border: `${this.color} 0.125em solid; !important`,
+        // 'text-shadow': `0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em ${this.color}; !important`,
+        // 'box-shadow': `inset 0 0 0.5em 0 ${this.color}, 0 0 0.5em 0 ${this.color}; !important`
+      }
     }
   }
 }
@@ -27,65 +37,16 @@ export default {
 
 <style lang="scss">
   .neon {
-    color: $primary;
     font-size: 1rem;
     display: inline-block;
     cursor: pointer;
     text-decoration: none;
-    color: $primary;
-    border: $primary 0.125em solid;
+    position: relative;
     padding: 0.25em 1em;
     border-radius: 0.25em;
 
-    text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
-
+    border: $primary 0.125em solid;
+    text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em $primary;
     box-shadow: inset 0 0 0.5em 0 $primary, 0 0 0.5em 0 $primary;
-
-    position: relative;
   }
-
-  // .neon-button::before {
-  //   pointer-events: none;
-  //   content: "";
-  //   position: absolute;
-  //   background: $primary;
-  //   top: 120%;
-  //   left: 0;
-  //   width: 100%;
-  //   height: 100%;
-
-  //   transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
-  //   filter: blur(1em);
-  //   opacity: 0.7;
-  // }
-
-  // .neon-button::after {
-  //   content: "";
-  //   position: absolute;
-  //   top: 0;
-  //   bottom: 0;
-  //   left: 0;
-  //   right: 0;
-  //   box-shadow: 0 0 2em 0.5em $primary;
-  //   opacity: 0;
-  //   background-color: $primary;
-  //   z-index: -1;
-  //   transition: opacity 100ms linear;
-  // }
-
-  // .neon-button:hover,
-  // .neon-button:focus {
-  //   color: var(--clr-bg);
-  //   text-shadow: none;
-  // }
-
-  // .neon-button:hover::before,
-  // .neon-button:focus::before {
-  //   opacity: 1;
-  // }
-  // .neon-button:hover::after,
-  // .neon-button:focus::after {
-  //   opacity: 1;
-  // }
-
 </style>

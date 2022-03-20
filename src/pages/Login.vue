@@ -68,6 +68,7 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
+import { setCssVar  } from 'quasar'
 
 export default ({
   name: 'List',
@@ -137,6 +138,10 @@ export default ({
     passwordErrors () {
       return this.errors.password?.message
     }
+  },
+
+  created() {
+    setCssVar('primary', '#27e8a7')
   },
 
   methods: {
