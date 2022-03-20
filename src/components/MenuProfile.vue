@@ -50,7 +50,7 @@ export default {
     ...mapActions('users', ['logout']),
 
     geFirstLetter (user) {
-      return user.name.slice(0,1)
+      return user.name?.slice(0,1)
     },
 
     endSession () {

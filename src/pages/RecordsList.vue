@@ -51,6 +51,7 @@
 import Card from 'components/Card.vue'
 import NeonBtn from 'components/NeonBtn.vue'
 import {mapActions, mapGetters} from 'vuex'
+import axios from "axios"
 
 export default ({
   name: 'List',
@@ -61,6 +62,7 @@ export default ({
       idCard: '',
       page: 1,
       result: {},
+      userName: '',
       images: ['https://1.bp.blogspot.com/--mgtxY8CNqg/W-NqyKm5gRI/AAAAAAAADgM/RVruchsFP7EMwv3ZWbaZM9ws-Qga-FWlgCLcBGAs/s640/an%25C3%25A3o-protetor-Help-RPG.jpg'],
     }
   },
@@ -80,10 +82,6 @@ export default ({
 
     maxPages () {
       return Math.ceil(this.getRecordsLength / 10)
-    },
-
-    userName () {
-      return this.loggedUser.name ?? localStorage.getItem('user')
     }
   },
 
@@ -91,6 +89,7 @@ export default ({
     this.getResults(this.recordsList)
     this.fetchRecords({page: this.page, limit: 10})
     this.fetchAllRecords()
+    this.getUser(localStorage.getItem('id'))
 
   },
 
@@ -130,7 +129,12 @@ export default ({
     async deleteSelectedRecord (id) {
       this.showDialog = !this.showDialog;
       await this.deleteRecord(id)
-    }
+    },
+
+    async getUser (id) {
+      const { data : { name }} = await axios.get(`http://localhost:3000/users/${id}`) 
+      this.userName = name
+    },
   }
 })
 </script>

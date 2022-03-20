@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header v-if="hasLoggedUser" elevated class="row no-wrap items-center header-menu justify-between">
+    <q-header v-show="hasNotLogin" elevated class="row no-wrap items-center header-menu justify-between">
       <q-toolbar>
         <div class="row no-wrap">
           <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
@@ -24,14 +24,14 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view @user-change="getUser()" />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue'
-import { mapGetters } from 'vuex'
+import axios from "axios"
 import MenuProfile from '../components/MenuProfile.vue'
 
 export default defineComponent({
@@ -43,17 +43,15 @@ export default defineComponent({
 
   data(){
     return {
-      isLogged: false,
-      userMock: {
-        name: 'Leonardo da Silva Marco',
-        avatar: 'https://w7.pngwing.com/pngs/238/464/png-transparent-bart-simpson-s-guide-to-life-homer-simpson-marge-simpson-lisa-simpson-los-simpson.png'
-      }
+      user: {}
     }
   },
 
-  computed: {
-    ...mapGetters('users', ['loggedUser']),
+  mounted() {
+    this.getUser()
+  },
 
+  computed: {
     linksList () {
       return [
         {
@@ -69,12 +67,14 @@ export default defineComponent({
       ]
     },
 
-    hasLoggedUser () {
-      return this.getLoggedUser() && !!localStorage.getItem('token')
-    },
+    hasNotLogin () {
+      return this.$route.name !== 'Login'
+    }
+  },
 
-    user () {
-      return this.loggedUser
+  watch: {
+    $route () {
+      this.getUser()
     }
   },
 
@@ -90,8 +90,21 @@ export default defineComponent({
   },
 
   methods:{
-    async getLoggedUser () {
-      return !!this.loggedUser
+    async getUser () {
+      if(!this.hasNotLogin) return
+      console.log('caiu')
+      const { data } = await axios.get('http://localhost:3000/projects', 
+        {
+          headers: {
+            "Accept": 'application/json',
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+          }
+        } 
+      )
+    
+      const { data : { _id, email, name }} = await axios.get(`http://localhost:3000/users/${data.user}`)  
+      this.user = { id: _id, email, name }
     }
   }
 })

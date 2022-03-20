@@ -1,5 +1,5 @@
 const setLoggedUser = (state, user) => {
-  state.me = {...user}
+  state.isLogged = !!user
 }
 
 const postUser = (state, user) => {
@@ -26,6 +26,6 @@ const postUser = (state, user) => {
 // }
 
 export {
-  setLoggedUser,
-  postUser
+  postUser,
+  setLoggedUser
 }

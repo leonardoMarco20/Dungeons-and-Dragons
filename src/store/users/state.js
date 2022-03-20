@@ -1,6 +1,7 @@
 export default function () {
   return {
     me: {},
-    users: []
+    users: [],
+    isLogged: false
   }
 }

@@ -1,9 +1,11 @@
 import axios from "axios"
-// const resource_uri = 'http://localhost:3000/register'
 
 const registerUser = async ({commit}, payload) => {
   await axios.post('http://localhost:3000/auth/register', payload)
-  commit('postUser', payload)
+}
+
+const updateUser = async ({commit}, {payload, id}) => {
+  await axios.patch(`http://localhost:3000/auth/register/${id}`, payload)
 }
 
 const authenticateUser = async ({commit}, payload) => {
@@ -11,7 +13,7 @@ const authenticateUser = async ({commit}, payload) => {
     const result = await axios.post('http://localhost:3000/auth/authenticate', payload)
     
     localStorage.setItem('token', result.data.token)
-    localStorage.setItem('email', result.data.user.email)
+    localStorage.setItem('id', result.data.user._id)
 
     const {data} = await axios.get('http://localhost:3000/projects', 
       // {
@@ -30,7 +32,6 @@ const authenticateUser = async ({commit}, payload) => {
     const user = await axios.get(`http://localhost:3000/users/${data.user}`)  
 
     commit('setLoggedUser', user.data)
-    return localStorage.setItem('user', user.data.name) 
   }  
   
   catch (error) {
@@ -40,7 +41,7 @@ const authenticateUser = async ({commit}, payload) => {
 
 const logout = async ({commit}) => {
   localStorage.clear()
-  commit('setLoggedUser', {})
+  commit('setLoggedUser', false)
 }
 
 
@@ -57,6 +58,7 @@ const logout = async ({commit}) => {
 // } 
 export {
   registerUser,
+  updateUser,
   authenticateUser,
   logout
 }
