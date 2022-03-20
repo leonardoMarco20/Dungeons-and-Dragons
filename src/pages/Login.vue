@@ -16,7 +16,7 @@
           </template>
         </q-input>
         <q-input bg-color="white"  outlined label="Confirmar senha" v-model="values.confirmPassword" />
-          
+        <q-select :options="colors" bg-color="white" v-model="values.color" outlined label="Cor favorita" />       
       </div>
       <div class="full-width q-gutter-sm">
           <q-btn class="full-width" label="Cadastrar" color="primary" text-color="white" @click="register" />
@@ -79,7 +79,33 @@ export default ({
       list: 5,
       isRegisterForm: false,
       isForgotPassForm: false,
-      showPassword: false
+      showPassword: false,
+      colors: [
+        {
+          label: 'Vermelho',
+          value:'red'
+        },
+        {
+          label: 'Laranja',
+          value:'orange'
+        },
+        {
+          label: 'Amarelo',
+          value:'yellow'
+        },
+        {
+          label: 'Verde',
+          value:'green'
+        },
+        {
+          label: 'Azul',
+          value:'blue'
+        },
+        {
+          label: 'Roxo',
+          value:'purple'
+        }  
+      ]
     }
   },
       

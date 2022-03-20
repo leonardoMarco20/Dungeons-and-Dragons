@@ -11,7 +11,7 @@
       
       <div class="col-grow row q-col-gutter-md">
         <div v-for="(item, index)  in recordsList" :key="index" class="col-3">
-          <card class=" text-white" use-header use-actions :images="images">
+          <card class=" text-white" use-header use-actions :images="images" @click="goToSingle(item._id)">
             <template #default>
               <div class="text-bold text-h4">{{item.name}}</div>
               <div class="text-subtitle1">{{item.surname}}</div>
@@ -124,6 +124,10 @@ export default ({
     toogleDialog (id) {
       this.showDialog = !this.showDialog;
       this.idSelectedCard = id
+    },
+
+    goToSingle (id) {
+      this.$router.push({path: `/record/${id}`, params:{ id }})
     },
 
     async deleteSelectedRecord (id) {

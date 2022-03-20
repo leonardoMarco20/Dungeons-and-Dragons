@@ -1,14 +1,11 @@
 <template>
   <div>
     <q-page class="q-pa-md q-ma-md">
-      <div class="row full-width q-py-md">
-        <div class="col-grow text-h4">Ficha de personagem</div>
-        <div class="q-gutter-sm">
-          <q-btn icon="edit" round color="primary" class="record-page__btn-actions" :to="{path: `/record/${recordId}/edit`, params:{id: recordId }}" />
-          <q-btn icon="delete" round  color="primary" class="record-page__btn-actions" @click="toogleDialog" />
-        </div>
+      <div class="row no-wrap">
+        <div class="text-bold text-primary text-h6 full-width">Ficha de personagem</div>
+        <q-btn class="flex justify-end" icon="edit" round color="primary" :to="{path: `/record/${recordId}/edit`, params:{id: recordId }}" />
       </div>
-      <div class="bg-white rounded-borders row q-pa-md" :class="sizeClass">
+      <div class="bg-white rounded-borders row q-pa-md q-mt-md" :class="sizeClass">
         <div class="row q-gutter-sm full-width">
           <div class="row col-md-3 col-12">
             <div class="text-bold q-mr-xs">Name:</div>
@@ -21,19 +18,6 @@
         </div>
       </div>  
     </q-page>
-    <q-dialog v-model="showDialog">
-      <q-card class="q-pa-lg">
-        <q-card-section class="row no-wrap items-center q-col-gutter-sm">
-          <q-icon size="lg" name="warning" color="primary" text-color="white" />
-          <span class="q-ml-sm text-bold text-h6">Você quer mesmo destruir esse personagem?</span>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn label="Cancel" color="primary" v-close-popup />
-          <q-btn label="Destruir" color="primary" v-close-popup @click="deleteCurrentRecord(idSelectedCard)" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
   </div>
 </template>
 

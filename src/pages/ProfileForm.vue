@@ -18,7 +18,8 @@
             <q-icon v-if="showPassword" name="visibility" @click="toggleShowPassword" />
             <q-icon v-else name="visibility_off" @click="toggleShowPassword" />
           </template>
-        </q-input>          
+        </q-input>       
+        <q-select :options="colors" bg-color="white" v-model="values.color" outlined label="Cor favorita" />   
       </div>
       <div class="full-width q-gutter-sm">
           <q-btn class="full-width" label="Salvar" color="primary" text-color="white" @click="update" />
@@ -38,13 +39,38 @@ export default {
     return {
       values: {},
       errors: '',
-      showPassword: false
+      showPassword: false,
+      colors: [
+        {
+          label: 'Vermelho',
+          value:'red'
+        },
+        {
+          label: 'Laranja',
+          value:'orange'
+        },
+        {
+          label: 'Amarelo',
+          value:'yellow'
+        },
+        {
+          label: 'Verde',
+          value:'green'
+        },
+        {
+          label: 'Azul',
+          value:'blue'
+        },
+        {
+          label: 'Roxo',
+          value:'purple'
+        }  
+      ]   
     }
   },
 
   computed: {
     userId () {
-      console.log(this.$route.params.id)
       return this.$route.params.id
     },
 
@@ -69,8 +95,8 @@ export default {
     },
 
     async getUser (id) {   
-      const { data : { email, name }} = await axios.get(`http://localhost:3000/users/${id}`) 
-      this.values = { email, name }
+      const { data : { email, name, color }} = await axios.get(`http://localhost:3000/users/${id}`) 
+      this.values = { email, name, color }
     },
 
     goBack () {

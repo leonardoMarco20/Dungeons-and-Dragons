@@ -92,7 +92,6 @@ export default defineComponent({
   methods:{
     async getUser () {
       if(!this.hasNotLogin) return
-      console.log('caiu')
       const { data } = await axios.get('http://localhost:3000/projects', 
         {
           headers: {
