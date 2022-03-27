@@ -11,7 +11,7 @@
       </div>
       <div class="q-gutter-sm full-width q-ma-none">
         <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Nome completo" v-model="values.name" />
-        <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Email" v-model="values.email" hide-bottom-space @blur="refreshErrors" :error="!!errors" :error-message="errors" />
+        <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Email" v-model="values.email" hide-bottom-space @blur="refreshErrors" :error="!!errors.email" :error-message="errors.email" />
                   
         <q-input bg-color="white"  v-model="values.password" outlined label="Nova senha" :type="passwordInputType">
           <template #append>
@@ -19,7 +19,7 @@
             <q-icon v-else name="visibility_off" @click="toggleShowPassword" />
           </template>
         </q-input>       
-        <q-select :options="colors" bg-color="white" v-model="values.color" outlined label="Cor favorita" />   
+        <q-select :rules="hasColor" popup-content-class="bg-white" :options="colors" bg-color="white" v-model="values.color" outlined label="Cor favorita" />   
       </div>
       <div class="full-width q-gutter-sm">
           <q-btn class="full-width" label="Salvar" color="primary" text-color="white" @click="update" />
@@ -71,8 +71,8 @@ export default {
   },
 
   watch: {
-    'values.color'({ value }) {
-      setCssVar('primary', value)
+    'values.color'(color) {
+      if(color?.value) setCssVar('primary', color?.value)
     }
   },
 
@@ -101,6 +101,10 @@ export default {
       return this.showPassword = !this.showPassword
     },
 
+    hasColor (val) {
+      return [val => val.length > 0 || 'Please select a color!']
+    },
+
     async getUser (id) {   
       const { data : { email, name, color }} = await axios.get(`http://localhost:3000/users/${id}`) 
       this.values = { email, name, color }
@@ -116,13 +120,14 @@ export default {
 
     update () {
       this.updateUser({payload: this.values, id: this.userId }).then(()=>{
-        setCssVar('primary', this.values.color.value)
-        this.$q.notify('Dados atualizados')
+        this.$q.notify('Perfil atualizado!')
         this.$router.push({name: 'Records' })
       }).catch(err =>{
         this.errors = err.response?.data?.error
-        // this.$q.notify('Houve um erro ao atualizar os dados')
-        this.$q.notify(this.errors)
+        console.log(this.errors)
+        console.log(err)
+        this.$q.notify('Houve um erro ao atualizar os dados!')
+        
       })
       
     }

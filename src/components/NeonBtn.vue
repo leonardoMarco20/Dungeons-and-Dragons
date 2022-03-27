@@ -1,5 +1,5 @@
 <template>
-  <q-btn ref="neon" class="neon text-primary" :label="label" :style="styles" />
+  <q-btn ref="neon" v-bind="$attrs" class="neon text-primary" :label="label" :style='styles' /> 
 </template>
 
 <script>
@@ -23,12 +23,12 @@ export default {
 
   computed: {
     styles() {
-      return {
-        height: `${this.height}px;`,
-        // border: `${this.color} 0.125em solid; !important`,
-        // 'text-shadow': `0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em ${this.color}; !important`,
-        // 'box-shadow': `inset 0 0 0.5em 0 ${this.color}, 0 0 0.5em 0 ${this.color}; !important`
-      }
+      return [
+        `height: ${this.height}px;`,
+        `border: ${this.color.value} 2px solid;`,
+        `text-shadow: 0 0 2px hsl(0 0% 100% / 0.3), 0 0 0.45em ${this.color.value};`,
+        `box-shadow: inset 0 0 0.5em 0 ${this.color.value}, 0 0 0.5em 0 ${this.color.value};`
+      ]
     }
   }
 }
@@ -44,9 +44,10 @@ export default {
     position: relative;
     padding: 0.25em 1em;
     border-radius: 0.25em;
+    font-family: cursive;
 
-    border: $primary 0.125em solid;
-    text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em $primary;
-    box-shadow: inset 0 0 0.5em 0 $primary, 0 0 0.5em 0 $primary;
+    // border: $primary 0.125em solid;
+    // text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em $primary;
+    // box-shadow: inset 0 0 0.5em 0 $primary, 0 0 0.5em 0 $primary;
   }
 </style>

@@ -3,9 +3,9 @@
     <q-header v-show="hasNotLogin" elevated class="row no-wrap items-center header-menu justify-between">
       <q-toolbar>
         <div class="row no-wrap">
-          <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+          <!-- <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" /> -->
           <q-toolbar-title>
-            Dungeons and dragons
+            <div class="cursor-pointer" @click="goToList">Dungeons and dragons</div>
           </q-toolbar-title>
         </div>
       </q-toolbar>
@@ -106,6 +106,10 @@ export default defineComponent({
       const { data : { _id, email, name, color }} = await axios.get(`http://localhost:3000/users/${data.user}`)  
       this.user = { id: _id, email, name, color }
       setCssVar('primary', color.value)
+    },
+
+    goToList() {
+      this.$router.push('/records')
     }
   }
 })
