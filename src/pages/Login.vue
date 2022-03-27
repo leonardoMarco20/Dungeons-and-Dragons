@@ -6,17 +6,22 @@
         <div class="text-bold text-primary text-h6">Crie sua conta</div>
       </div>
       <div class="q-gutter-sm full-width q-ma-none">
-        <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Nome completo" v-model="values.name" />
-        <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Email" v-model="values.email" />
+        <q-input class="col-12 col-sm-6" bg-color="white" outlined label="Nome completo" v-model="values.name" hide-bottom-space  @blur="refreshErrors" :error="!!errors.name" :error-message="errors.name" />
+        <q-input class="col-12 col-sm-6" bg-color="white" outlined label="Email" v-model="values.email" hide-bottom-space @blur="refreshErrors" :error="!!errors.email" :error-message="errors.email" />
                   
-        <q-input bg-color="white"  v-model="values.password" outlined label="Senha" :type="passwordInputType">
+         <q-input bg-color="white" hide-bottom-space @blur="refreshErrors" :error="!!errors.password" :error-message="errors.password" v-model="values.password" outlined label="Senha" :type="passwordInputType">
           <template #append>
-            <q-icon v-if="showPassword" name="visibility" @click="toggleShowPassword" />
-            <q-icon v-else name="visibility_off" @click="toggleShowPassword" />
+            <q-icon class="cursor-pointer" v-if="showPassword" name="visibility" @click="toggleShowPassword" />
+            <q-icon class="cursor-pointer" v-else name="visibility_off" @click="toggleShowPassword" />
           </template>
         </q-input>
-        <q-input bg-color="white"  outlined label="Confirmar senha" v-model="values.confirmPassword" />
-        <q-select :options="colors" bg-color="white" v-model="values.color" outlined label="Cor favorita" />       
+        <q-input :type="confirmPasswordInputType" bg-color="white" outlined label="Confirmar senha" v-model="values.confirmPassword" hide-bottom-space @blur="refreshErrors" :error="!!errors.confirmPassword" :error-message="errors.confirmPassword">
+          <template #append>
+            <q-icon class="cursor-pointer" v-if="showConfirmPassword" name="visibility" @click="toggleShowConfirmPassword" />
+            <q-icon class="cursor-pointer" v-else name="visibility_off" @click="toggleShowConfirmPassword" />
+          </template>
+        </q-input>     
+        <q-select :rules="hasColor" popup-content-class="bg-white" :options="colors" bg-color="white" v-model="values.color" outlined label="Cor favorita" />   
       </div>
       <div class="full-width q-gutter-sm">
           <q-btn class="full-width" label="Cadastrar" color="primary" text-color="white" @click="register" />
@@ -48,8 +53,8 @@
         <q-input hide-bottom-space @blur="refreshErrors('email')" :error="hasEmailErrors" :error-message="emailErrors"  bg-color="white" v-model="values.email" outlined label="Email" type="email" icon="account_circle" />
         <q-input hide-bottom-space @blur="refreshErrors('password')" :error="hasPasswordErrors" :error-message="passwordErrors" bg-color="white" v-model="values.password" outlined label="Senha" :type="passwordInputType">
           <template #append>
-            <q-icon v-if="showPassword" name="visibility" @click="toggleShowPassword" />
-            <q-icon v-else name="visibility_off" @click="toggleShowPassword" />
+            <q-icon class="cursor-pointer" v-if="showPassword" name="visibility" @click="toggleShowPassword" />
+            <q-icon class="cursor-pointer" v-else name="visibility_off" @click="toggleShowPassword" />
           </template>
         </q-input>
       </div>
@@ -81,6 +86,7 @@ export default ({
       isRegisterForm: false,
       isForgotPassForm: false,
       showPassword: false,
+      showConfirmPassword: false,
       colors: [
         {
           label: 'Vermelho',
@@ -123,6 +129,10 @@ export default ({
       return this.showPassword ? 'text' : 'password'
     },
 
+    confirmPasswordInputType () {
+      return this.showConfirmPassword ? 'text' : 'password'
+    },
+
     hasEmailErrors () {
       return this.errors.email && 'email' in this.errors 
     },
@@ -159,13 +169,22 @@ export default ({
       return this.showPassword = !this.showPassword
     },
 
-    refreshErrors (field) {
-      delete this.errors[field]
+    toggleShowConfirmPassword () {
+      return this.showConfirmPassword = !this.showConfirmPassword
+    },
+
+    refreshErrors () {
+      this.errors = ''
     },
 
     register () {
-      this.registerUser(this.values)
-      this.toggleRegisterForm()
+      this.registerUser(this.values).then(()=>{
+        this.toggleRegisterForm()
+      })
+      .catch((err)=>{
+       this.errors = err.response?.data?.error
+        this.$q.notify('Houve um erro na tentativa de cadastro!')
+      })
     },
 
     authenticate () {

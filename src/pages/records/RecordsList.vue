@@ -9,7 +9,7 @@
       </div>
       <div class="col-grow row q-col-gutter-md">
         <div v-for="(item, index)  in recordsList" :key="index" class="col-3">
-          <card class=" text-white" use-header use-actions :images="images" @click="goToSingle(item._id)">
+          <card class=" text-white" use-header use-actions :images="images">
             <template #default>
               <div class="text-bold text-h4">{{item.name}}</div>
               <div class="text-subtitle1">{{item.surname}}</div>

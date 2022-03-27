@@ -124,8 +124,6 @@ export default {
         this.$router.push({name: 'Records' })
       }).catch(err =>{
         this.errors = err.response?.data?.error
-        console.log(this.errors)
-        console.log(err)
         this.$q.notify('Houve um erro ao atualizar os dados!')
         
       })
