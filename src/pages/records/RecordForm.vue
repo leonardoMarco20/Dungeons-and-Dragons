@@ -1,66 +1,66 @@
 <template>
-  <q-page class="record-form-page q-pa-md q-ma-md">
-    <div class="row no-wrap">
-      <div class="full-width row items-center">
-        <div v-if="values._id" class="text-bold text-primary text-h6">Edição de personagem</div>
-        <div v-else class="text-bold text-primary text-h6">Criação de personagem</div>
+  <q-page class="q-ma-md q-pa-md record-form-page">
+    <div class="no-wrap row">
+      <div class="full-width items-center row">
+        <div v-if="values._id" class="text-bold text-h6 text-primary">Edição de personagem</div>
+        <div v-else class="text-bold text-h6 text-primary">Criação de personagem</div>
       </div>
-      <q-btn icon="delete" round  color="primary" class="" @click="toogleDialog" />
+      <q-btn class="" color="primary"  icon="delete" round @click="toogleDialog" />
     </div>
-    <div class="record-form-page__form q-mt-md row q-pa-md" :class="sizeClass">
+    <div class="q-mt-md q-pa-md record-form-page__form row" :class="sizeClass">
       <div class="full-width">
-        <div class="row full-width q-col-gutter-sm">
-          <q-input v-model="values.name" outlined label="Nome" class="q-ml-none" hide-bottom-space @blur="refreshErrors('name')" :error="!!errors.name" :error-message="getErrorMessage(errors.name)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Jogador" v-model="values.player" hide-bottom-space @blur="refreshErrors('player')" :error="!!errors.player" :error-message="getErrorMessage(errors.player)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Classe" v-model="values.class" hide-bottom-space @blur="refreshErrors('class')" :error="!!errors.class" :error-message="getErrorMessage(errors.class)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Nível" v-model="values.level" hide-bottom-space @blur="refreshErrors('level')" :error="!!errors.level" :error-message="getErrorMessage(errors.level)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Raça" v-model="values.race" hide-bottom-space @blur="refreshErrors('race')" :error="!!errors.race" :error-message="getErrorMessage(errors.race)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Tendência" v-model="values.trend" hide-bottom-space @blur="refreshErrors('trend')" :error="!!errors.trend" :error-message="getErrorMessage(errors.trend)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Divindade" v-model="values.divinity" hide-bottom-space @blur="refreshErrors('divinity')" :error="!!errors.divinity" :error-message="getErrorMessage(errors.divinity)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Tamanho" v-model="values.size" hide-bottom-space @blur="refreshErrors('size')" :error="!!errors.size" :error-message="getErrorMessage(errors.size)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Idade" v-model="values.age" hide-bottom-space @blur="refreshErrors('age')" :error="!!errors.age" :error-message="getErrorMessage(errors.age)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Sexo" v-model="values.sex" hide-bottom-space @blur="refreshErrors('sex')" :error="!!errors.sex" :error-message="getErrorMessage(errors.sex)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Peso" v-model="values.weight" hide-bottom-space @blur="refreshErrors('weight')" :error="!!errors.weight" :error-message="getErrorMessage(errors.weight)" />
+        <div class="full-width q-col-gutter-sm row">
+          <q-input v-model="values.name" class="q-ml-none row" :error="!!errors.name" :error-message="getErrorMessage(errors.name)" hide-bottom-space label="Nome" @blur="refreshErrors('name')" />
+          <q-input v-model="values.player" bg-color="white" class="col-12 col-sm-6" :error="!!errors.player" :error-message="getErrorMessage(errors.player)" hide-bottom-space label="Jogador" @blur="refreshErrors('player')" />
+          <q-input v-model="values.class" bg-color="white" class="col-12 col-sm-6" :error="!!errors.class" :error-message="getErrorMessage(errors.class)" hide-bottom-space label="Classe" @blur="refreshErrors('class')" />
+          <q-input v-model="values.level" bg-color="white" class="col-12 col-sm-6" :error="!!errors.level" :error-message="getErrorMessage(errors.level)" hide-bottom-space label="Nível" @blur="refreshErrors('level')" />
+          <q-input v-model="values.race" bg-color="white" class="col-12 col-sm-6" :error="!!errors.race" :error-message="getErrorMessage(errors.race)" hide-bottom-space label="Raça" @blur="refreshErrors('race')" />
+          <q-input v-model="values.trend" bg-color="white" class="col-12 col-sm-6" :error="!!errors.trend" :error-message="getErrorMessage(errors.trend)" hide-bottom-space label="Tendência" @blur="refreshErrors('trend')" />
+          <q-input v-model="values.divinity" bg-color="white" class="col-12 col-sm-6" :error="!!errors.divinity" :error-message="getErrorMessage(errors.divinity)" hide-bottom-space label="Divindade" @blur="refreshErrors('divinity')" />
+          <q-input v-model="values.size" bg-color="white" class="col-12 col-sm-6" :error="!!errors.size" :error-message="getErrorMessage(errors.size)" hide-bottom-space label="Tamanho" @blur="refreshErrors('size')" />
+          <q-input v-model="values.age" bg-color="white" class="col-12 col-sm-6" :error="!!errors.age" :error-message="getErrorMessage(errors.age)" hide-bottom-space label="Idade" @blur="refreshErrors('age')" />
+          <q-input v-model="values.sex" bg-color="white" class="col-12 col-sm-6" :error="!!errors.sex" :error-message="getErrorMessage(errors.sex)" hide-bottom-space label="Sexo" @blur="refreshErrors('sex')" />
+          <q-input v-model="values.weight" bg-color="white" class="col-12 col-sm-6" :error="!!errors.weight" :error-message="getErrorMessage(errors.weight)" hide-bottom-space label="Peso" @blur="refreshErrors('weight')" />
 
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Pontos de vida" v-model="values.healPoints" hide-bottom-space @blur="refreshErrors('healPoints')" :error="!!errors.healPoints" :error-message="getErrorMessage(errors.healPoints)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Classe de armadura" v-model="values.armorClass" hide-bottom-space @blur="refreshErrors('armorClass')" :error="!!errors.armorClass" :error-message="getErrorMessage(errors.armorClass)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Iniciativa" v-model="values.initiative" hide-bottom-space @blur="refreshErrors('initiative')" :error="!!errors.initiative" :error-message="getErrorMessage(errors.initiative)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Toque" v-model="values.touch" hide-bottom-space @blur="refreshErrors('touch')" :error="!!errors.touch" :error-message="getErrorMessage(errors.touch)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Supresa" v-model="values.flatFooted" hide-bottom-space @blur="refreshErrors('flatFooted')" :error="!!errors.flatFooted" :error-message="getErrorMessage(errors.flatFooted)" />
+          <q-input v-model="values.healPoints" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.healPoints" :error-message="getErrorMessage(errors.healPoints)" hide-bottom-space label="Pontos de vida" outlined @blur="refreshErrors('healPoints')" />
+          <q-input v-model="values.armorClass" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.armorClass" :error-message="getErrorMessage(errors.armorClass)" hide-bottom-space label="Classe de armadura" outlined @blur="refreshErrors('armorClass')" />
+          <q-input v-model="values.initiative" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.initiative" :error-message="getErrorMessage(errors.initiative)" hide-bottom-space label="Iniciativa" outlined @blur="refreshErrors('initiative')" />
+          <q-input v-model="values.touch" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.touch" :error-message="getErrorMessage(errors.touch)" hide-bottom-space label="Toque" outlined @blur="refreshErrors('touch')" />
+          <q-input v-model="values.flatFooted" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.flatFooted" :error-message="getErrorMessage(errors.flatFooted)" hide-bottom-space label="Supresa" outlined @blur="refreshErrors('flatFooted')" />
 
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Força" v-model="values.strength" hide-bottom-space @blur="refreshErrors('strength')" :error="!!errors.strength" :error-message="getErrorMessage(errors.strength)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Destreza" v-model="values.dexterity" hide-bottom-space @blur="refreshErrors('dexterity')" :error="!!errors.dexterity" :error-message="getErrorMessage(errors.dexterity)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Constituição" v-model="values.constitution" hide-bottom-space @blur="refreshErrors('constitution')" :error="!!errors.constitution" :error-message="getErrorMessage(errors.constitution)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Inteligência" v-model="values.intelligence" hide-bottom-space @blur="refreshErrors('intelligence')" :error="!!errors.intelligence" :error-message="getErrorMessage(errors.intelligence)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Sabedoria" v-model="values.wisdom" hide-bottom-space @blur="refreshErrors('wisdom')" :error="!!errors.wisdom" :error-message="getErrorMessage(errors.wisdom)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Carisma" v-model="values.charisma" hide-bottom-space @blur="refreshErrors('charisma')" :error="!!errors.charisma" :error-message="getErrorMessage(errors.charisma)" />
+          <q-input v-model="values.strength" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.strength" :error-message="getErrorMessage(errors.strength)" hide-bottom-space label="Força" outlined @blur="refreshErrors('strength')" />
+          <q-input v-model="values.dexterity" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.dexterity" :error-message="getErrorMessage(errors.dexterity)" hide-bottom-space label="Destreza" outlined @blur="refreshErrors('dexterity')" />
+          <q-input v-model="values.constitution" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.constitution" :error-message="getErrorMessage(errors.constitution)" hide-bottom-space label="Constituição" outlined @blur="refreshErrors('constitution')" />
+          <q-input v-model="values.intelligence" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.intelligence" :error-message="getErrorMessage(errors.intelligence)" hide-bottom-space label="Inteligência" outlined @blur="refreshErrors('intelligence')" />
+          <q-input v-model="values.wisdom" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.wisdom" :error-message="getErrorMessage(errors.wisdom)" hide-bottom-space label="Sabedoria" outlined @blur="refreshErrors('wisdom')" />
+          <q-input v-model="values.charisma" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.charisma" :error-message="getErrorMessage(errors.charisma)" hide-bottom-space label="Carisma" outlined @blur="refreshErrors('charisma')" />
 
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Fortitude" v-model="values.fortitude" hide-bottom-space @blur="refreshErrors('fortitude')" :error="!!errors.fortitude" :error-message="getErrorMessage(errors.fortitude)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Reflexo" v-model="values.reflex" hide-bottom-space @blur="refreshErrors('reflex')" :error="!!errors.reflex" :error-message="getErrorMessage(errors.reflex)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Vontade" v-model="values.will" hide-bottom-space @blur="refreshErrors('will')" :error="!!errors.will" :error-message="getErrorMessage(errors.will)" />
+          <q-input v-model="values.fortitude" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.fortitude" :error-message="getErrorMessage(errors.fortitude)" hide-bottom-space label="Fortitude" outlined @blur="refreshErrors('fortitude')" />
+          <q-input v-model="values.reflex" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.reflex" :error-message="getErrorMessage(errors.reflex)" hide-bottom-space label="Reflexo" outlined @blur="refreshErrors('reflex')" />
+          <q-input v-model="values.will" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.will" :error-message="getErrorMessage(errors.will)" hide-bottom-space label="Vontade" outlined @blur="refreshErrors('will')" />
 
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Resesitência a magia" v-model="values.spellResistence" hide-bottom-space @blur="refreshErrors('spellResistence')" :error="!!errors.spellResistence" :error-message="getErrorMessage(errors.spellResistence)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Agarrar" v-model="values.grapple" hide-bottom-space @blur="refreshErrors('grapple')" :error="!!errors.grapple" :error-message="getErrorMessage(errors.grapple)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Armas" v-model="values.weapons" hide-bottom-space @blur="refreshErrors('weapons')" :error="!!errors.weapons" :error-message="getErrorMessage(errors.weapons)" />
-          <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Equipamentos" v-model="values.equipament" hide-bottom-space @blur="refreshErrors('equipament')" :error="!!errors.equipament" :error-message="getErrorMessage(errors.equipament)" />
+          <q-input v-model="values.spellResistence" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.spellResistence" :error-message="getErrorMessage(errors.spellResistence)" hide-bottom-space label="Resesitência a magia" outlined @blur="refreshErrors('spellResistence')" />
+          <q-input v-model="values.grapple" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.grapple" :error-message="getErrorMessage(errors.grapple)" hide-bottom-space label="Agarrar" outlined @blur="refreshErrors('grapple')" />
+          <q-input v-model="values.weapons" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.weapons" :error-message="getErrorMessage(errors.weapons)" hide-bottom-space label="Armas" outlined @blur="refreshErrors('weapons')" />
+          <q-input v-model="values.equipament" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.equipament" :error-message="getErrorMessage(errors.equipament)" hide-bottom-space label="Equipamentos" outlined @blur="refreshErrors('equipament')" />
         </div>
       </div>
-      <div class="row justify-end q-gutter-sm full-width">
-        <q-btn outline class="text-primary" label="Voltar" @click="goBack" />
-        <q-btn unelevated v-if="values._id" label="Salvar" color="primary" text-color="white" @click="update" />
-        <q-btn unelevated v-else label="Criar" color="primary" text-color="white" @click="createRecord" />
+      <div class="full-width justify-end q-gutter-sm row">
+        <q-btn class="text-primary" label="Voltar" outline @click="goBack" />
+        <q-btn v-if="values._id" color="primary" label="Salvar" text-color="white" unelevated @click="update" />
+        <q-btn v-else color="primary" label="Criar" text-color="white" unelevated @click="createRecord" />
       </div>
     </div>
     <q-dialog v-model="showDialog">
       <q-card class="q-pa-lg">
-        <q-card-section class="row no-wrap items-center q-col-gutter-sm">
-          <q-icon size="lg" name="warning" color="primary" text-color="white" />
+        <q-card-section class="items-center no-wrap q-col-gutter-sm row">
+          <q-icon color="primary" name="warning" size="lg" text-color="white" />
           <span class="q-ml-sm text-bold text-h6">Você quer mesmo destruir esse personagem?</span>
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn label="Cancel" color="primary" v-close-popup />
-          <q-btn label="Destruir" color="primary" v-close-popup @click="deleteCurrentRecord(idSelectedCard)" />
+          <q-btn v-close-popup color="primary" label="Cancel" />
+          <q-btn v-close-popup color="primary" label="Destruir" @click="deleteCurrentRecord(idSelectedCard)" />
         </q-card-actions>
       </q-card>
     </q-dialog>

@@ -1,22 +1,22 @@
 <template>
   <div class="profile">
-     <div class='col-grow row items-center relative-position'>
-        <q-avatar class="profile__avatar cursor-pointer" color="primary" text-color="white" size="24">
+     <div class="col-grow items-center relative-position row">
+        <q-avatar class="cursor-pointer profile__avatar" color="primary" size="24" text-color="white">
           <img v-if="user.avatar" :src="user.avatar" >
           <div v-else>
             {{geFirstLetter(user)}}
           </div>
         </q-avatar>
-        <q-chip color="secondary" class="relative-position cursor-pointer text-white text-subtitle1 q-pl-xl">
+        <q-chip class="cursor-pointer q-pl-xl relative-position text-subtitle1 text-white" color="secondary">
           {{ user.name }}
 
-          <q-menu class="full-width profile__menu text-white bg-secondary">
+          <q-menu class="bg-secondary full-width profile__menu text-white">
             <q-list style="profile__menu__list">
-              <q-item class="row q-col-gutter-xs items-center" clickable v-close-popup  :to="{ name: 'Profile', params: {id: user.id} }">
+              <q-item v-close-popup class="items-center q-col-gutter-xs row" clickable  :to="{ name: 'Profile', params: {id: user.id} }">
                 <q-icon name="account_circle" size="sm" />
                 <q-item-section>Perfil</q-item-section>
               </q-item>
-              <q-item class="row q-col-gutter-xs items-center" clickable v-close-popup>
+              <q-item v-close-popup class="items-center q-col-gutter-xs row" clickable>
                 <q-icon name="logout" size="sm" />
                 <q-item-section @click="endSession">Logout</q-item-section>
               </q-item>  

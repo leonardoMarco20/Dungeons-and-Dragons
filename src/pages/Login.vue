@@ -1,67 +1,67 @@
 <template>
-  <q-page class="login-page flex items-center justify-center">
-    <div v-if="isRegisterForm" class="relative-position row login-page__form q-gutter-md q-pa-md" :class="sizeClass">
+  <q-page class="flex items-center justify-center login-page">
+    <div v-if="isRegisterForm" class="login-page__form q-gutter-md q-pa-md relative-position row" :class="sizeClass">
       <!-- REGISTRATION -->
-      <div class="full-width row items-center justify-center">
-        <div class="text-bold text-primary text-h6">Crie sua conta</div>
+      <div class="full-width items-center justify-center row">
+        <div class="text-bold text-h6 text-primary">Crie sua conta</div>
       </div>
-      <div class="q-gutter-sm full-width q-ma-none">
-        <q-input class="col-12 col-sm-6" bg-color="white" outlined label="Nome completo" v-model="values.name" hide-bottom-space  @blur="refreshErrors" :error="!!errors.name" :error-message="errors.name" />
-        <q-input class="col-12 col-sm-6" bg-color="white" outlined label="Email" v-model="values.email" hide-bottom-space @blur="refreshErrors" :error="!!errors.email" :error-message="errors.email" />
+      <div class="full-width q-gutter-sm q-ma-none">
+        <q-input v-model="values.name" bg-color="white" class="col-12 col-sm-6" :error="!!errors.name" :error-message="errors.name" hide-bottom-space  label="Nome completo" outlined @blur="refreshErrors" />
+        <q-input v-model="values.email" bg-color="white" class="col-12 col-sm-6" :error="!!errors.email" :error-message="errors.email" hide-bottom-space label="Email" outlined @blur="refreshErrors" />
                   
-         <q-input bg-color="white" hide-bottom-space @blur="refreshErrors" :error="!!errors.password" :error-message="errors.password" v-model="values.password" outlined label="Senha" :type="passwordInputType">
+         <q-input v-model="values.password" bg-color="white" :error="!!errors.password" :error-message="errors.password" hide-bottom-space label="Senha" outlined :type="passwordInputType" @blur="refreshErrors">
           <template #append>
-            <q-icon class="cursor-pointer" v-if="showPassword" name="visibility" @click="toggleShowPassword" />
-            <q-icon class="cursor-pointer" v-else name="visibility_off" @click="toggleShowPassword" />
+            <q-icon v-if="showPassword" class="cursor-pointer" name="visibility" @click="toggleShowPassword" />
+            <q-icon v-else class="cursor-pointer" name="visibility_off" @click="toggleShowPassword" />
           </template>
         </q-input>
-        <q-input :type="confirmPasswordInputType" bg-color="white" outlined label="Confirmar senha" v-model="values.confirmPassword" hide-bottom-space @blur="refreshErrors" :error="!!errors.confirmPassword" :error-message="errors.confirmPassword">
+        <q-input v-model="values.confirmPassword" bg-color="white" :error="!!errors.confirmPassword" :error-message="errors.confirmPassword" hide-bottom-space label="Confirmar senha" outlined :type="confirmPasswordInputType" @blur="refreshErrors">
           <template #append>
-            <q-icon class="cursor-pointer" v-if="showConfirmPassword" name="visibility" @click="toggleShowConfirmPassword" />
-            <q-icon class="cursor-pointer" v-else name="visibility_off" @click="toggleShowConfirmPassword" />
+            <q-icon v-if="showConfirmPassword" class="cursor-pointer" name="visibility" @click="toggleShowConfirmPassword" />
+            <q-icon v-else class="cursor-pointer" name="visibility_off" @click="toggleShowConfirmPassword" />
           </template>
         </q-input>     
-        <q-select :rules="hasColor" popup-content-class="bg-white" :options="colors" bg-color="white" v-model="values.color" outlined label="Cor favorita" />   
+        <q-select v-model="values.color" bg-color="white" label="Cor favorita" :options="colors" outlined popup-content-class="bg-white" :rules="hasColor" />   
       </div>
       <div class="full-width q-gutter-sm">
-          <q-btn class="full-width" label="Cadastrar" color="primary" text-color="white" @click="register" />
-          <q-btn outline class="full-width text-primary cursor-pointer" @click="toggleRegisterForm" label="Voltar" />
+          <q-btn class="full-width" color="primary" label="Cadastrar" text-color="white" @click="register" />
+          <q-btn class="cursor-pointer full-width text-primary" label="Voltar" outline @click="toggleRegisterForm" />
       </div>
     </div>
 
     <!-- ESQUECI A SENHA -->
     <div v-if="isForgotPassForm" class="login-page__form q-gutter-md q-pa-md" :class="sizeClass">
       <div class="column full-width items-center justify-center q-gutter-sm">
-        <q-avatar size="80px" font-size="52px" color="primary" text-color="white" icon="account_circle" />
-        <div class="text-bold text-primary text-h6">Atualização de senha</div>
+        <q-avatar color="primary" font-size="52px" icon="account_circle" size="80px" text-color="white" />
+        <div class="text-bold text-h6 text-primary">Atualização de senha</div>
       </div>
       <div class="full-width">
-          <q-input bg-color="white" v-model="values.email" outlined label="Email" />
+          <q-input v-model="values.email" bg-color="white" label="Email" outlined />
       </div>
       <div class="full-width q-gutter-sm">
-        <q-btn class="full-width" label="Atualizar senha" color="primary" text-color="white" />
-        <q-btn outline class="full-width text-primary cursor-pointer" @click="toggleForgotPassForm" label="Voltar" />
+        <q-btn class="full-width" color="primary" label="Atualizar senha" text-color="white" />
+        <q-btn class="cursor-pointer full-width text-primary" label="Voltar" outline @click="toggleForgotPassForm" />
       </div>
     </div>
 
 <!-- LOGIN -->
     <div v-if="isLoginForm" class="login-page__form q-gutter-md q-pa-md" :class="sizeClass">
-      <div class="row items-center justify-center q-gutter-sm">
-        <q-avatar size="80px" font-size="52px" color="primary" text-color="white" icon="account_circle" />
+      <div class="items-center justify-center q-gutter-sm row">
+        <q-avatar color="primary" font-size="52px" icon="account_circle" size="80px" text-color="white" />
       </div>
       <div class="q-gutter-md q-ma-none">
-        <q-input hide-bottom-space @blur="refreshErrors('email')" :error="hasEmailErrors" :error-message="emailErrors"  bg-color="white" v-model="values.email" outlined label="Email" type="email" icon="account_circle" />
-        <q-input hide-bottom-space @blur="refreshErrors('password')" :error="hasPasswordErrors" :error-message="passwordErrors" bg-color="white" v-model="values.password" outlined label="Senha" :type="passwordInputType">
+        <q-input v-model="values.email" bg-color="white" :error="hasEmailErrors" :error-message="emailErrors"  hide-bottom-space icon="account_circle" label="Email" outlined type="email" @blur="refreshErrors('email')" />
+        <q-input v-model="values.password" bg-color="white" :error="hasPasswordErrors" :error-message="passwordErrors" hide-bottom-space label="Senha" outlined :type="passwordInputType" @blur="refreshErrors('password')">
           <template #append>
-            <q-icon class="cursor-pointer" v-if="showPassword" name="visibility" @click="toggleShowPassword" />
-            <q-icon class="cursor-pointer" v-else name="visibility_off" @click="toggleShowPassword" />
+            <q-icon v-if="showPassword" class="cursor-pointer" name="visibility" @click="toggleShowPassword" />
+            <q-icon v-else class="cursor-pointer" name="visibility_off" @click="toggleShowPassword" />
           </template>
         </q-input>
       </div>
-      <q-btn label="Esqueci minha senha" class="text-bold q-mx-none" @click="toggleForgotPassForm" dense padding="none" size="sm" flat text-color="primary" />
-      <div class="full-width row justify-center items-center">
-        <q-btn class="full-width" label="Entrar" color="primary" text-color="white" @click="authenticate" />
-        <div class="text-primary text-caption row items-center q-mt-md q-gutter-xs">
+      <q-btn class="q-mx-none text-bold" dense flat label="Esqueci minha senha" padding="none" size="sm" text-color="primary" @click="toggleForgotPassForm" />
+      <div class="full-width items-center justify-center row">
+        <q-btn class="full-width" color="primary" label="Entrar" text-color="white" @click="authenticate" />
+        <div class="items-center q-gutter-xs q-mt-md row text-caption text-primary">
           <div>Não possui um cadastro?</div>
           <div class="cursor-pointer" @click="toggleRegisterForm">Criar conta</div>
         </div>
@@ -181,23 +181,23 @@ export default ({
       this.registerUser(this.values).then(()=>{
         this.toggleRegisterForm()
       })
-      .catch((err)=>{
-       this.errors = err.response?.data?.error
-        this.$q.notify('Houve um erro na tentativa de cadastro!')
-      })
+        .catch((err)=>{
+          this.errors = err.response?.data?.error
+          this.$q.notify('Houve um erro na tentativa de cadastro!')
+        })
     },
 
     authenticate () {
       this.authenticateUser(this.values)
-      .then(()=>{
-        this.$router.push('/records')
-      })
-      .catch((err)=>{
-        this.errors = err.response?.data?.error
-        if (this.hasEmailErrors) return this.$q.notify(this.errors.email)
-        if (this.hasPasswordErrors) return this.$q.notify(this.errors.password)
-        return this.$q.notify(this.errors)
-      })
+        .then(()=>{
+          this.$router.push('/records')
+        })
+        .catch((err)=>{
+          this.errors = err.response?.data?.error
+          if (this.hasEmailErrors) return this.$q.notify(this.errors.email)
+          if (this.hasPasswordErrors) return this.$q.notify(this.errors.password)
+          return this.$q.notify(this.errors)
+        })
       
     }
   }

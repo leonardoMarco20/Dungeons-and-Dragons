@@ -1,29 +1,29 @@
 <template>
-  <q-page class="profile-page flex items-center justify-center">
-    <div class="row q-mt-sm profile-page__form q-gutter-md q-pa-md">
-      <div class="full-width q-mt-none row items-center justify-center">
-        <q-avatar class="cursor-pointer" color="primary" text-color="white" size="90px" font-size="52px" >
+  <q-page class="flex items-center justify-center profile-page">
+    <div class="profile-page__form q-gutter-md q-mt-sm q-pa-md row">
+      <div class="full-width items-center justify-center q-mt-none row">
+        <q-avatar class="cursor-pointer" color="primary" font-size="52px" size="90px" text-color="white" >
           <img v-if="values.avatar" :src="values.avatar" >
           <div v-else>
             {{geFirstLetter(values.name)}}
           </div>
         </q-avatar>
       </div>
-      <div class="q-gutter-sm full-width q-ma-none">
-        <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Nome completo" v-model="values.name" />
-        <q-input class="col-12 col-sm-6" bg-color="white"  outlined label="Email" v-model="values.email" hide-bottom-space @blur="refreshErrors" :error="!!errors.email" :error-message="errors.email" />
+      <div class="full-width q-gutter-sm q-ma-none">
+        <q-input v-model="values.name" bg-color="white"  class="col-12 col-sm-6" label="Nome completo" outlined />
+        <q-input v-model="values.email" bg-color="white"  class="col-12 col-sm-6" :error="!!errors.email" :error-message="errors.email" hide-bottom-space label="Email" outlined @blur="refreshErrors" />
                   
-        <q-input bg-color="white"  v-model="values.password" outlined label="Nova senha" :type="passwordInputType">
+        <q-input v-model="values.password"  bg-color="white" label="Nova senha" outlined :type="passwordInputType">
           <template #append>
             <q-icon v-if="showPassword" name="visibility" @click="toggleShowPassword" />
             <q-icon v-else name="visibility_off" @click="toggleShowPassword" />
           </template>
         </q-input>       
-        <q-select :rules="hasColor" popup-content-class="bg-white" :options="colors" bg-color="white" v-model="values.color" outlined label="Cor favorita" />   
+        <q-select v-model="values.color" bg-color="white" label="Cor favorita" :options="colors" outlined popup-content-class="bg-white" :rules="hasColor" />   
       </div>
       <div class="full-width q-gutter-sm">
-          <q-btn class="full-width" label="Salvar" color="primary" text-color="white" @click="update" />
-          <q-btn outline class="full-width text-primary cursor-pointer" label="Voltar" @click="goBack" />
+          <q-btn class="full-width" color="primary" label="Salvar" text-color="white" @click="update" />
+          <q-btn class="cursor-pointer full-width text-primary" label="Voltar" outline @click="goBack" />
       </div>
     </div>
     

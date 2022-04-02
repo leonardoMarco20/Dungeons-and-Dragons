@@ -1,44 +1,44 @@
 <template>
   <div>
-    <q-page class="column record-list-page q-pa-md">
-      <div class="row justify-between">
-        <div class="q-py-lg text-h4 text-bold text-white">Seja bem vindo {{userName}}</div>
-        <div class="row items-center">
-          <neon-btn label="Adicionar" :color="color" @click="goToCreateRecord" />
+    <q-page class="column q-pa-md record-list-page">
+      <div class="justify-between row">
+        <div class="q-py-lg text-bold text-h4 text-white">Seja bem vindo {{userName}}</div>
+        <div class="items-center row">
+          <neon-btn :color="color" label="Adicionar" @click="goToCreateRecord" />
         </div>
       </div>
-      <div class="col-grow row q-col-gutter-md">
+      <div class="col-grow q-col-gutter-md row">
         <div v-for="(item, index)  in recordsList" :key="index" class="col-3">
-          <card class=" text-white" use-header use-actions :images="images">
+          <card class="text-white" :images="images" use-actions use-header>
             <template #default>
               <div class="text-bold text-h4">{{item.name}}</div>
               <div class="text-subtitle1">{{item.surname}}</div>
             </template>
             <template #actions>
               <q-separator class="full-width" />
-              <div class="record-list-page__actions q-py-xs row justify-around full-width">
-                <q-btn flat icon="visibility" round color="primary" :to="{path: `/record/${item._id}`, params:{id: item._id }}" />
-                <q-btn flat icon="edit" round color="primary" :to="{path: `/record/${item._id}/edit`, params:{id: item._id }}" />
-                <q-btn flat icon="delete" round color="primary" @click="toogleDialog(item._id)" />
+              <div class="full-width justify-around q-py-xs record-list-page__actions row">
+                <q-btn color="primary" flat icon="visibility" round :to="{path: `/record/${item._id}`, params:{id: item._id }}" />
+                <q-btn color="primary" flat icon="edit" round :to="{path: `/record/${item._id}/edit`, params:{id: item._id }}" />
+                <q-btn color="primary" flat icon="delete" round @click="toogleDialog(item._id)" />
               </div>
             </template>  
           </card> 
         </div>
       </div>
-       <div class="q-pa-lg flex flex-center">
-        <q-pagination @click="changePage" color="primary" :max="maxPages" v-model="page"  boundary-links direction-links  />
+       <div class="flex flex-center q-pa-lg">
+        <q-pagination v-model="page" boundary-links color="primary" direction-links  :max="maxPages" @click="changePage"  />
        </div>
     </q-page>
     <q-dialog v-model="showDialog">
       <q-card class="q-pa-lg">
-        <q-card-section class="row no-wrap items-center q-col-gutter-sm">
-          <q-icon size="lg" name="warning" color="primary" text-color="white" />
+        <q-card-section class="items-center no-wrap q-col-gutter-sm row">
+          <q-icon color="primary" name="warning" size="lg" text-color="white" />
           <span class="q-ml-sm text-bold text-h6">Você quer mesmo destruir esse personagem?</span>
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn label="Cancel" color="primary" v-close-popup />
-          <q-btn label="Destruir" color="primary" v-close-popup @click="deleteSelectedRecord(idSelectedCard)" />
+          <q-btn v-close-popup color="primary" label="Cancel" />
+          <q-btn v-close-popup color="primary" label="Destruir" @click="deleteSelectedRecord(idSelectedCard)" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -111,7 +111,7 @@ export default ({
       this.results = results
     },
 
-     setCurrentPage () {
+    setCurrentPage () {
       this.page = parseInt(this.$route.query.page || 1)
     },
 

@@ -59,8 +59,29 @@ module.exports = {
   rules: {
     'prefer-promise-reject-errors': 'off',
 
+    'arrow-parens': 'off',
+    'generator-star-spacing': 'off',
+    // 'import/default': 'error',
+    // 'import/export': 'error',
+    'import/extensions': 'off',
+    'import/first': 'off',
+    // 'import/named': 'error',
+    // 'import/namespace': 'error',
+    'import/no-extraneous-dependencies': 'off',
+    'import/no-unresolved': 'off',
+    'one-var': 'off',
+    'prefer-promise-reject-errors': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/no-v-html': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
 
-    // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'vue/array-bracket-spacing': ['error', 'never'],
+    'vue/arrow-spacing': ['error', { before: true, after: true }],
+    'vue/attributes-order': ['error', { alphabetical: true }],
+    'vue/block-spacing': ['error', 'always'],
+    'vue/no-reserved-component-names': ['error'],
+    'vue/script-indent': ['error'],
+    'vue/static-class-names-order': ['error'],
+    'vue/v-slot-style': ['error', 'shorthand']
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header v-show="hasNotLogin" elevated class="row no-wrap items-center header-menu justify-between">
+    <q-header v-show="hasNotLogin" class="header-menu items-center justify-between no-wrap row" elevated>
       <q-toolbar>
-        <div class="row no-wrap">
+        <div class="no-wrap row">
           <!-- <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" /> -->
           <q-toolbar-title>
             <div class="cursor-pointer" @click="goToList">Dungeons and dragons</div>
@@ -14,7 +14,7 @@
 
     <q-drawer v-model="leftDrawerOpen" bordered class="bg-grey-1">
       <q-list bordered separator>
-        <q-item :to="link.path" active-class="text-orange" class="text-grey-8" v-for="(link, index) in linksList" :key="index" clickable v-ripple>
+        <q-item v-for="(link, index) in linksList" :key="index" v-ripple active-class="text-orange" class="text-grey-8" clickable :to="link.path">
           <q-item-section avatar>
             <q-icon :name="link.icon" />
           </q-item-section>
@@ -94,13 +94,13 @@ export default defineComponent({
     async getUser () {
       if(!this.hasNotLogin) return
       const { data } = await axios.get('http://localhost:3000/projects', 
-        {
-          headers: {
-            "Accept": 'application/json',
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem('token')}`
-          }
-        } 
+                                       {
+                                         headers: {
+                                           "Accept": 'application/json',
+                                           "Content-Type": "application/json",
+                                           "Authorization": `Bearer ${localStorage.getItem('token')}`
+                                         }
+                                       } 
       )
     
       const { data : { _id, email, name, color }} = await axios.get(`http://localhost:3000/users/${data.user}`)  
