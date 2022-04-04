@@ -324,7 +324,7 @@
               </div>
             </div>
 
-            <div class="col-8 q-mt-xl row">
+            <div v-for="(weapon, index) in 3" :key="index" class="col-8 q-mt-lg row">
               <div class="column">
                 <div class="full-width items-center justify-center">
                   <div class="bg-dark column flex items-center justify-center q-pa-sm record-form-page__form--title-rounded-left text-white">
@@ -467,18 +467,6 @@ export default ({
   methods: {
     ...mapActions('records', ['postRecord', 'fetchSingleRecord', 'updateRecord']),
 
-    createRecord () {
-      this.postRecord(this.values).then(()=>{
-        this.$q.notify('Ficha criada!')
-        this.$router.push({name: 'Records' })
-      }).catch(err =>{
-        this.errors = err.response?.data?.error
-        debugger
-        this.$q.notify('Existem erros no formulário!')
-        
-      })
-    },
-
     async fetchRecord () {
       await this.fetchSingleRecord(this.recordId)
       this.values = {...this.singleRecord}
@@ -496,9 +484,21 @@ export default ({
       this.$router.go(-1)
     },
 
+    createRecord () {
+      this.postRecord(this.values).then(()=>{
+        this.$q.notify('Ficha criada!')
+        this.$router.push({name: 'Records' })
+      }).catch(err =>{
+        this.errors = err.response?.data?.error
+        this.$q.notify('Existem erros no formulário!')
+      })
+    },
+
     update () {
-      this.updateRecord(this.values)
-      this.$router.push({ path:'/records' })
+      this.$q.notify('Ficha atualizada!')
+      this.updateRecord(this.values).then(() => {
+        this.$router.push({ name: 'RecordSingle', params: {id: this.values._id} })
+      })
     }
   }
 })

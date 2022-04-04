@@ -19,6 +19,7 @@ const fetchSingleRecord = async ({commit}, id) => {
 const postRecord = async ({commit}, payload) => {
   await axios.post(resource_uri, payload)
   commit('postRecord', payload)
+  return payload
 }
 
 const updateRecord = async ({commit}, payload) => {
