@@ -9,7 +9,7 @@
         </slot>
       </div>
 
-      <q-card-section class="col-grow column justify-between">
+      <q-card-section class="col-grow justify-between row">
         <div :class="gutterClasses">
           <slot />
         </div>

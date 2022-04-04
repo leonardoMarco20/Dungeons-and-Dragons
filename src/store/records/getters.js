@@ -3,8 +3,8 @@ const getRecords = state => {
   return state.records
 }
 
-const getRecordsLength = state => {
-  return state.recordsLength
+const getRecordsCount = state => {
+  return state.count
 }
 
 const singleRecord = state => {
@@ -13,6 +13,6 @@ const singleRecord = state => {
 
 export {
   getRecords,
-  getRecordsLength,
+  getRecordsCount,
   singleRecord
 }

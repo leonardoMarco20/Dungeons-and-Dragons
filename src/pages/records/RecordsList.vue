@@ -11,8 +11,16 @@
         <div v-for="(item, index)  in recordsList" :key="index" class="col-3">
           <card class="text-white" :images="images" use-actions use-header>
             <template #default>
-              <div class="text-bold text-h4">{{item.name}}</div>
-              <div class="text-subtitle1">{{item.surname}}</div>
+              <div class="col-12 q-col-gutter-md row">
+                <div class="col-12 items-center q-gutter-md row">
+                  <div class="text-bold text-h4">{{item.name}}</div>
+                  <div class="text-subtitle1"> - {{item.player}}</div>
+                </div>
+                <div class="col-grow items-center q-gutter-md row">
+                  <div class="text-subtitle1">{{item.class}}</div>
+                  <div class="text-subtitle1">Level {{item.level}}</div>
+                </div>
+              </div>
             </template>
             <template #actions>
               <q-separator class="full-width" />
@@ -72,7 +80,7 @@ export default ({
   },
 
   computed: {
-    ...mapGetters('records', ['getRecords', 'getRecordsLength']),
+    ...mapGetters('records', ['getRecords', 'getRecordsCount']),
     ...mapGetters('users', ['loggedUser']),
 
     recordsList () {
@@ -80,14 +88,13 @@ export default ({
     },
 
     maxPages () {
-      return Math.ceil(this.getRecordsLength / 10)
+      return Math.ceil(this.getRecordsCount / 12) 
     }
   },
 
   created () {
     this.getResults(this.recordsList)
-    this.fetchRecords({page: this.page, limit: 10})
-    this.fetchAllRecords()
+    this.fetchRecords({page: this.page, limit: 12})
     this.getUser(localStorage.getItem('id'))
 
   },
@@ -96,12 +103,11 @@ export default ({
     $route () {
       this.fetchRecords({page: this.page, limit: 10})
       this.setCurrentPage()
-      this.fetchAllRecords()
     }
   },
 
   methods: {
-    ...mapActions('records', ['fetchRecords', 'fetchAllRecords', 'deleteRecord']),
+    ...mapActions('records', ['fetchRecords', 'deleteRecord']),
 
     goToCreateRecord() {
       this.$router.push({name: 'CreateRecord'})

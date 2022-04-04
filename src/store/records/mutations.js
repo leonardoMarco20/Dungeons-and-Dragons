@@ -2,8 +2,8 @@ const setRecords = (state, records) => {
   state.records = records.results
 }
 
-const setRecordsLength = (state, records) => {
-  state.recordsLength = records.results.length
+const setRecordsCount = (state, count) => {
+  state.count = count
 }
 
 const postRecord = (state, record) =>{
@@ -21,7 +21,7 @@ const deleteRecord = (state, recordId) => {
 
 export {
   setRecords,
-  setRecordsLength,
+  setRecordsCount,
   setSingleRecord,
   postRecord,
   deleteRecord

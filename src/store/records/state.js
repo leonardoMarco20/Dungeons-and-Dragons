@@ -1,7 +1,7 @@
 export default function () {
   return {
     records: [],
-    recordsLength: 0,
+    count: 0,
     currentRecord: {}
   }
 }
